@@ -36,10 +36,12 @@ public class App {
 
         List<Article> allArticles = new ArrayList<>();
         // TODO: Populate allArticles with articles from corresponding feeds
+        allArticles = parseXML(feedsDataArray);
 
         if (config.getPrintFeed()) {
             System.out.println("Printing feed(s) ");
             // TODO: Print the fetched feed
+            Config conf = handleInput(allArticles); //algo asi??
         }
 
         if (config.getComputeNamedEntities()) {
@@ -47,7 +49,7 @@ public class App {
             System.out.println("Computing named entities using ");
 
             // TODO: compute named entities using the selected heuristic
-
+            
             // TODO: Print stats
             System.out.println("\nStats: ");
             System.out.println("-".repeat(80));
