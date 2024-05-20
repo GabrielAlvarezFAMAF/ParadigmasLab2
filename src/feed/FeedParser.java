@@ -20,17 +20,19 @@ public class FeedParser {
         Date pubDate = null;
         String[] lines = xmlData.split("\n");
         for (String line : lines) {
-            if (line.contains("<title>")) {
-                title = line.substring(line.indexOf("<title>") + 7, line.indexOf("</title>"));
-            } else if (line.contains("<description>")) {
-                description = line.substring(line.indexOf("<description>") + 13, line.indexOf("</description>"));
-            } else if (line.contains("<link>")) {
-                link = line.substring(line.indexOf("<link>") + 6, line.indexOf("</link>"));
-            } else if (line.contains("<pubDate>")) {
-                String date = line.substring(line.indexOf("<pubDate>") + 9, line.indexOf("</pubDate>"));
-                pubDate = Date.valueOf(date);
-            } else if (line.contains("</item>")) {
-                articles.add(new Article(title, description, pubDate, link));
+        if (line.contains("<item>")){
+                if (line.contains("<title>")) {
+                    title = line.substring(line.indexOf("<title>") + 7, line.indexOf("</title>"));
+                } else if (line.contains("<description>")) {
+                    description = line.substring(line.indexOf("<description>") + 13, line.indexOf("</description>"));
+                } else if (line.contains("<link>")) {
+                    link = line.substring(line.indexOf("<link>") + 6, line.indexOf("</link>"));
+                } else if (line.contains("<pubDate>")) {
+                    String date = line.substring(line.indexOf("<pubDate>") + 9, line.indexOf("</pubDate>"));
+                    pubDate = Date.valueOf(date);
+                } else if (line.contains("</item>")) {
+                    articles.add(new Article(title, description, pubDate, link));
+                }
             }
         }
         return articles;
@@ -39,6 +41,7 @@ public class FeedParser {
     public static String fetchFeed(String feedURL) throws MalformedURLException, IOException, Exception {
 
         URL url = new URL(feedURL);
+        
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("GET");

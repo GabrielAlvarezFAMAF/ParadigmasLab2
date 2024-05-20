@@ -3,7 +3,6 @@ package utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 public class UserInterface {
 
     private HashMap<String, String> optionDict;
@@ -17,6 +16,7 @@ public class UserInterface {
         options.add(new Option("-ne", "--named-entity", 1));
         options.add(new Option("-pf", "--print-feed", 0));
         options.add(new Option("-sf", "--stats-format", 1));
+        options.add(new Option("-he", "heuristic", 1));
 
         optionDict = new HashMap<String, String>();
     }
@@ -44,9 +44,9 @@ public class UserInterface {
         Boolean printFeed = optionDict.containsKey("-pf");
         Boolean computeNamedEntities = optionDict.containsKey("-ne");
         // TODO: use value for heuristic config
-        
+        String heuristic = optionDict.get("-he");
         String feedKey = optionDict.get("-f");
 
-        return new Config(printFeed, computeNamedEntities, feedKey);
+        return new Config(printFeed, computeNamedEntities, feedKey, heuristic);
     }
 }

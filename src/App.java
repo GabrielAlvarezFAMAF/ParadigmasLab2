@@ -1,13 +1,13 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import feed.FeedParser;
 import feed.Article;
 import utils.Config;
 import utils.FeedsData;
 import utils.JSONParser;
 import utils.UserInterface;
-
+import java.net.MalformedURLException;
 public class App {
 
     public static void main(String[] args) {
@@ -34,14 +34,29 @@ public class App {
             return;
         }
 
-        List<Article> allArticles = new ArrayList<>();
-        // TODO: Populate allArticles with articles from corresponding feeds
-        allArticles = parseXML(feedsDataArray);
+        try {
+            List<Article> allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl()));
+            // TODO: Populate allArticles with articles from corresponding feeds
 
+            //depuring print 
+            for (Article article : allArticles) {
+                System.out.println(article.getTitle());
+                System.out.println(article.getLink());
+                System.out.println(article.getPubDate());
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }//dudoso catch Exception e 
+        
+        
         if (config.getPrintFeed()) {
             System.out.println("Printing feed(s) ");
             // TODO: Print the fetched feed
-            Config conf = handleInput(allArticles); //algo asi??
         }
 
         if (config.getComputeNamedEntities()) {
@@ -49,7 +64,7 @@ public class App {
             System.out.println("Computing named entities using ");
 
             // TODO: compute named entities using the selected heuristic
-            
+
             // TODO: Print stats
             System.out.println("\nStats: ");
             System.out.println("-".repeat(80));
