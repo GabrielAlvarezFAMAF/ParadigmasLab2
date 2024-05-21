@@ -4,10 +4,10 @@ import java.util.Date;
 public class Article {
     private String title ; 
     private String descrpition ; 
-    private Date pubDate ; 
+    private String pubDate ; 
     private String link ; 
     //constructor
-    public Article(String title, String descrpition, Date pubDate, String link){
+    public Article(String title, String descrpition, String pubDate, String link){
         this.title = title;
         this.descrpition = descrpition;
         this.pubDate = pubDate;
@@ -20,7 +20,7 @@ public class Article {
     public String getDescrpition(){
         return descrpition;
     }   
-    public Date getPubDate(){
+    public String getPubDate(){
         return pubDate;
     }   
     public String getLink(){
@@ -36,14 +36,15 @@ public class Article {
     public void setDescrpition(String descrpition){
         this.descrpition = descrpition;
     }  
-    public void setPubDate(Date pubDate){
+    public void setPubDate(String pubDate){
         this.pubDate = pubDate;
     }
-    public String toString (){
-        return "Title: " + title + "\n" + 
+    public void toString (String title, String descrpition, String pubDate, String link){
+        System.out.println ("Title: " + title + "\n" + 
         "Description: " + descrpition + "\n"+ 
         "Publication Date: " + pubDate + "\n" + 
-        "Link: " + link;
+        "Link: " + link+ "\n "+ "******************"
+        );
     }//provided by copilot but have to change to pretty print 
     
     //metodos (de ser necesarios) 

@@ -26,10 +26,10 @@ public class FeedParser {
         NodeList items = doc.getElementsByTagName("item");
         List<Article> articles = new ArrayList<Article>();
         for (int i=0 ; i<items.getLength(); i++) {
-            String title = null;
-            String description = null;
-            String link = null;
-            Date pubDate = null;
+            String title = "";
+            String description = "";
+            String link = "";
+            String pubDate = "";
             Node nodo = items.item(i); // a partir de aca vamos a trabajar como en algortimos 2 
             if (nodo.getNodeType() == Node.ELEMENT_NODE){
                 Element elemment = (Element) nodo;
@@ -43,7 +43,7 @@ public class FeedParser {
                     link = elemment.getElementsByTagName("link").item(0).getTextContent();
                 }
                 if(elemment.getElementsByTagName("pubDate").getLength() > 0){
-                    pubDate = Date.valueOf(elemment.getElementsByTagName("pubDate").item(0).getTextContent());
+                    pubDate = elemment.getElementsByTagName("pubDate").item(0).getTextContent();
                 }
                 
                 articles.add(new Article(title, description, pubDate , link));
@@ -65,7 +65,7 @@ public class FeedParser {
         
         // TODO: Cambiar el user-agent al nombre de su grupo.  Done 
         // Si todos los grupos usan el mismo user-agent, el servidor puede bloquear las solicitudes.
-        connection.setRequestProperty("Broken", "lab_paradigmas");
+        connection.setRequestProperty("User-agent", "Broken");
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);
 

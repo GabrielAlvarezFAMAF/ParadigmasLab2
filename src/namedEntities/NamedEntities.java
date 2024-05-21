@@ -1,26 +1,27 @@
 
 import java.util.Date;
-
+import java.util.List;
 enum Category {PERSON, LOCATION, ORGANIZATION, OTHER};
 enum Topics {POLITICS, SPORTS, ECONOMY, HEALTH, TECHNOLOGY, CULTURE, OTHER};
 
 
 public class NamedEntities {
    private Category category;
-   private Topics topics;
+   private List <Topics> topics;   
    private String name ;
-   public NamedEntities (Category category, Topics topic, String name) {
+   public NamedEntities (Category category, List<Topics> topics, String name) {
        this.category = category ;
-       this.topics = topic ;
+       this.topics = topics ;
        this.name = name;
    }
 // getters
    public Category getCategory(){
        return category;
    }
-   public Topics getTopics(){
-       return topics;
-   }
+   public Topics[] getTopics(){ 
+        Topics top[] = new Topics[topics.size()];
+        return topics.toArray(top);
+   }//dudoso cuestionable parcialmente mal complicado inneceario
    public String getName(){
        return name;
    }
@@ -29,7 +30,7 @@ public class NamedEntities {
        this.category = category;
    }
    public void setTopics(Topics topics){
-       this.topics = topics;
+         this.topics.add(topics);
    }
    public void setName(String name){
        this.name = name;
@@ -38,64 +39,86 @@ public class NamedEntities {
 }
 //modelado de categorias posiblemente se necesite añadirlas a otro archivo 
 class Person extends NamedEntities {
+    //atributos unicos para cada categoria
     private Date birth;
     private int age;
     private int height; 
-    public Person (String name){
-        super(Category.PERSON, Topics.OTHER, name);
+    //constructors
+    public Person(Category category, List<Topics> topics, String name) {
+        super(category, topics, name);
     }
-    public Person (String name, Date birth, int age, int height){
-        super(Category.PERSON, Topics.OTHER, name);
+    public Person(Category category, List<Topics> topics, String name, Date birth, int age, int height) {
+        super(category, topics, name);
         this.birth = birth;
         this.age = age;
         this.height = height;
     }
-    public Person (String name, Date birth, int age){
-        super(Category.PERSON, Topics.OTHER, name);
-        this.birth = birth;
-        this.age = age;
+    //getters 
+    public Date getBirth(){
+        return birth;
     }
-    public Person (String name, Date birth){
-        super(Category.PERSON, Topics.OTHER, name);
-        this.birth = birth;
+    public int getAge(){
+        return age;
     }
-    //atributos unicos para cada categoria
+    public int getHeight(){
+        return height;
+    }
 }
 class Location extends NamedEntities {
     private String longitud; 
     private String latitud;
-    public Location (String name){
-        super(Category.LOCATION, Topics.OTHER, name);
+    //constructors
+    public Location(Category category, List<Topics> topics, String name) {
+        super(category, topics, name);
     }
-    public Location (String name, String longitud, String latitud){
-        super(Category.LOCATION, Topics.OTHER, name);
+    public Location(Category category, List<Topics> topics, String name, String longitud, String latitud) {
+        super(category, topics, name);
         this.longitud = longitud;
         this.latitud = latitud;
     }
-    
+    //getters
+    public String getLongitud(){
+        return longitud;
+    }
+    public String getLatitud(){
+        return latitud;
+    }
 }
 class Organization extends NamedEntities {
     private Date fundationDate;
     private String website;
-    public Organization (String name){
-        super(Category.ORGANIZATION, Topics.OTHER, name);
+    //constructors
+    public Organization(Category category, List<Topics> topics, String name) {
+        super(category, topics, name);
     }
-    public Organization (String name, Date fundationDate, String website){
-        super(Category.ORGANIZATION, Topics.OTHER, name);
+    public Organization(Category category, List<Topics> topics, String name, Date fundationDate, String website) {
+        super(category, topics, name);
         this.fundationDate = fundationDate;
         this.website = website;
+    }
+    //getters
+    public Date getFundationDate(){
+        return fundationDate;
+    }
+    public String getWebsite(){
+        return website;
     }
 }
 class Other extends NamedEntities {
     private String description;
-    public Other (String name){
-        super(Category.OTHER, Topics.OTHER, name);
+    //constructors
+    public Other(Category category, List<Topics> topics, String name) {
+        super(category, topics, name);
     }
-    public Other (String name, String description){
-        super(Category.OTHER, Topics.OTHER, name);
+    public Other(Category category, List<Topics> topics, String name, String description) {
+        super(category, topics, name);
         this.description = description;
     }
-    //atributos unicos para cada categoria
+    //getters
+    public String getDescription(){
+        return description;
+    }
+    
 }
 //modelado de topics posiblemente se necesite añadirlas a otro archivo
 

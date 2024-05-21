@@ -8,12 +8,13 @@ import utils.FeedsData;
 import utils.JSONParser;
 import utils.UserInterface;
 import java.net.MalformedURLException;
+import org.xml.sax.SAXException;
 public class App {
 
     public static void main(String[] args) {
 
         List<FeedsData> feedsDataArray = new ArrayList<>();
-        try {
+        try { 
             feedsDataArray = JSONParser.parseJsonFeedsData("src/data/feeds.json");
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,41 +36,43 @@ public class App {
         }
 
         try {
+            System.out.println("HOLA ENTRE  try del demonio");
             List<Article> allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl()));
-            // TODO: Populate allArticles with articles from corresponding feeds
+            
+            // TODO: Populate allArticles with articles from corresponding feed
+            if (config.getPrintFeed()) {
+                System.out.println("Printing feed(s) ");
+                // TODO: Print the fetched feed
+                for (Article article : allArticles) {
+                    article.toString(article.getTitle(), article.getDescrpition(), article.getPubDate(), article.getLink());
 
-            //depuring print 
-            for (Article article : allArticles) {
-                System.out.println(article.getTitle());
-                System.out.println(article.getLink());
-                System.out.println(article.getPubDate());
+                }
             }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }//dudoso catch Exception e 
-        
-        
-        if (config.getPrintFeed()) {
-            System.out.println("Printing feed(s) ");
-            // TODO: Print the fetched feed
-        }
+            if (config.getComputeNamedEntities()) {
+                // TODO: complete the message with the selected heuristic name
+                String heuristicName = config.getHeuristic();
+                System.out.println("Computing named entities using " + heuristicName + " heuristic");
 
-        if (config.getComputeNamedEntities()) {
-            // TODO: complete the message with the selected heuristic name
-            System.out.println("Computing named entities using ");
+                // TODO: compute named entities using the selected heuristic
 
-            // TODO: compute named entities using the selected heuristic
-
-            // TODO: Print stats
-            System.out.println("\nStats: ");
-            System.out.println("-".repeat(80));
+                // TODO: Print stats
+                System.out.println("\nStats: ");
+                System.out.println("-".repeat(80));
+            }
+    } catch (MalformedURLException e) {
+        e.printStackTrace();
+        System.out.println("Malformed URL");
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("IO Exception");
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Exception");
         }
     }
+    
+        //dudoso catch Exception e 
 
     // TODO: Maybe relocate this function where it makes more sense
     private static void printHelp(List<FeedsData> feedsDataArray) {
