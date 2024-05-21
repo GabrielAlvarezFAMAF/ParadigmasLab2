@@ -1,4 +1,10 @@
 package feed;
+// 
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import java.io.*; 
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,30 +16,40 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedParser {
+public class FeedParser { 
 
-    public static List<Article> parseXML(String xmlData) {
-        List <Article> articles = new ArrayList<>();
-        String title = "";
-        String description = "";
-        String link = "";
-        Date pubDate = null;
-        String[] lines = xmlData.split("\n");
-        for (String line : lines) {
-        if (line.contains("<item>")){
-                if (line.contains("<title>")) {
-                    title = line.substring(line.indexOf("<title>") + 7, line.indexOf("</title>"));
-                } else if (line.contains("<description>")) {
-                    description = line.substring(line.indexOf("<description>") + 13, line.indexOf("</description>"));
-                } else if (line.contains("<link>")) {
-                    link = line.substring(line.indexOf("<link>") + 6, line.indexOf("</link>"));
-                } else if (line.contains("<pubDate>")) {
-                    String date = line.substring(line.indexOf("<pubDate>") + 9, line.indexOf("</pubDate>"));
-                    pubDate = Date.valueOf(date);
-                } else if (line.contains("</item>")) {
-                    articles.add(new Article(title, description, pubDate, link));
+    public static List<Article> parseXML(String xmlData)throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        StringReader reader = new StringReader(xmlData);
+        Document doc = builder.parse(new InputSource(reader));
+        NodeList items = doc.getElementsByTagName("item");
+        List<Article> articles = new ArrayList<Article>();
+        for (int i=0 ; i<items.getLength(); i++) {
+            String title = null;
+            String description = null;
+            String link = null;
+            Date pubDate = null;
+            Node nodo = items.item(i); // a partir de aca vamos a trabajar como en algortimos 2 
+            if (nodo.getNodeType() == Node.ELEMENT_NODE){
+                Element elemment = (Element) nodo;
+                if(elemment.getElementsByTagName("title").getLength() > 0){
+                    title = elemment.getElementsByTagName("title").item(0).getTextContent();
                 }
+                if(elemment.getElementsByTagName("description").getLength() > 0){
+                    description = elemment.getElementsByTagName("description").item(0).getTextContent();
+                }
+                if(elemment.getElementsByTagName("link").getLength() > 0){
+                    link = elemment.getElementsByTagName("link").item(0).getTextContent();
+                }
+                if(elemment.getElementsByTagName("pubDate").getLength() > 0){
+                    pubDate = Date.valueOf(elemment.getElementsByTagName("pubDate").item(0).getTextContent());
+                }
+                
+                articles.add(new Article(title, description, pubDate , link));
+
             }
+
         }
         return articles;
     }
