@@ -1,14 +1,19 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 import feed.FeedParser;
+import heuristics.CapitalizedWordHeuristic;
 import feed.Article;
 import utils.Config;
+import utils.DictionaryData;
 import utils.FeedsData;
 import utils.JSONParser;
 import utils.UserInterface;
 import java.net.MalformedURLException;
-import org.xml.sax.SAXException;
+import java.util.List;
+import java.lang.String;
+
 public class App {
 
     public static void main(String[] args) {
@@ -37,8 +42,19 @@ public class App {
         if (config.getPrinthelp()) {
             printHelp(feedsDataArray);
         }
+
+        //parseo del diccionario para usarse posteriormente
+        //-------------------------------------------------------------------------
+        List<DictionaryData> dataDict = new ArrayList<>();
         try {
-            System.out.println("HOLA ENTRE  try del demonio");
+            dataDict = JSONParser.parseJsonDictionaryData("src/data/dictionary.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error parsing dictionary data");
+        }
+
+        //--------------------------------------------------------------------------
+        try {
             List<Article> allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl()));
             
             // TODO: Populate allArticles with articles from corresponding feed
@@ -57,6 +73,27 @@ public class App {
                 System.out.println("Computing named entities using " + heuristicName + " heuristic");
 
                 // TODO: compute named entities using the selected heuristic
+                if (heuristicName.equals("CapitalizedWordHeuristic")) {
+                    List<NamedEntities> namedEnt = new ArrayList<>(); //creamos arreglo de named entities
+                    List<String> words = new ArrayList<>(); //creamos arreglo de palabras para trabajar con la heruistica capital letters
+                    CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic(); //creamos un objeto de la clase heuristic
+                    words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); //extraemos las palabras candidatas
+                    
+                    //ahora deberiamos pasarlas por el diccionario para ver los topicos y categorias 
+                    //y luego agregarlas al arreglo de named entities
+                    for (String word : words) {
+                        for (DictionaryData data : dataDict) {
+                            if (word.equals(data.getKeyword())) {//es igual a la primera palabra o a todas?
+                                List <String> topics = new ArrayList<>();
+                                for(String topic : data.getTopic()){
+                                    topics.add(topic);
+                                }
+                                NamedEntities named =  new NamedEntities( "a",  topics , "b");
+                                namedEnt.add(named);
+                            }
+                        }
+                    }
+                }
 
                 // TODO: Print stats
                 System.out.println("\nStats: ");

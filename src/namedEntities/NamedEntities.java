@@ -1,21 +1,22 @@
 
 import java.util.Date;
 import java.util.List;
-enum Category {PERSON, LOCATION, ORGANIZATION, OTHER};
+import java.util.Locale.Category;
+enum String {PERSON, LOCATION, ORGANIZATION, OTHER};
 enum Topics {POLITICS, SPORTS, ECONOMY, HEALTH, TECHNOLOGY, CULTURE, OTHER};
 
 
 public class NamedEntities {
-   private Category category;
-   private List <Topics> topics;   
+   private String category;
+   private List <String> topics;   
    private String name ;
-   public NamedEntities (Category category, List<Topics> topics, String name) {
+   public NamedEntities (String category, List<String> topics, String name) {
        this.category = category ;
        this.topics = topics ;
        this.name = name;
    }
 // getters
-   public Category getCategory(){
+   public String getCategory(){
        return category;
    }
    public Topics[] getTopics(){ 
@@ -26,10 +27,10 @@ public class NamedEntities {
        return name;
    }
 //setters 
-   public void setCategory(Category category){
+   public void setCategory(String category){
        this.category = category;
    }
-   public void setTopics(Topics topics){
+   public void setTopics(String topics){
          this.topics.add(topics);
    }
    public void setName(String name){
@@ -44,10 +45,10 @@ class Person extends NamedEntities {
     private int age;
     private int height; 
     //constructors
-    public Person(Category category, List<Topics> topics, String name) {
+    public Person(String category, List<String> topics, String name) {
         super(category, topics, name);
     }
-    public Person(Category category, List<Topics> topics, String name, Date birth, int age, int height) {
+    public Person(String category, List<String> topics, String name, Date birth, int age, int height) {
         super(category, topics, name);
         this.birth = birth;
         this.age = age;
@@ -68,10 +69,10 @@ class Location extends NamedEntities {
     private String longitud; 
     private String latitud;
     //constructors
-    public Location(Category category, List<Topics> topics, String name) {
+    public Location(String category, List<String> topics, String name) {
         super(category, topics, name);
     }
-    public Location(Category category, List<Topics> topics, String name, String longitud, String latitud) {
+    public Location(String category, List<String> topics, String name, String longitud, String latitud) {
         super(category, topics, name);
         this.longitud = longitud;
         this.latitud = latitud;
@@ -88,10 +89,10 @@ class Organization extends NamedEntities {
     private Date fundationDate;
     private String website;
     //constructors
-    public Organization(Category category, List<Topics> topics, String name) {
+    public Organization(String category, List<String> topics, String name) {
         super(category, topics, name);
     }
-    public Organization(Category category, List<Topics> topics, String name, Date fundationDate, String website) {
+    public Organization(String category, List<String> topics, String name, Date fundationDate, String website) {
         super(category, topics, name);
         this.fundationDate = fundationDate;
         this.website = website;
@@ -107,10 +108,10 @@ class Organization extends NamedEntities {
 class Other extends NamedEntities {
     private String description;
     //constructors
-    public Other(Category category, List<Topics> topics, String name) {
+    public Other(String category, List<String> topics, String name) {
         super(category, topics, name);
     }
-    public Other(Category category, List<Topics> topics, String name, String description) {
+    public Other(String category, List<String> topics, String name, String description) {
         super(category, topics, name);
         this.description = description;
     }

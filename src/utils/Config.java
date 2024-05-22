@@ -1,5 +1,4 @@
 package utils;
-
 enum heuristica {
     CapitalizedWordHeuristic,
     ProfesionHeuristic,
