@@ -13,7 +13,7 @@ import utils.UserInterface;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.lang.String;
-
+import namedEntities.NamedEntities;
 public class App {
 
     public static void main(String[] args) {
@@ -88,8 +88,7 @@ public class App {
                                 for(String topic : data.getTopic()){
                                     topics.add(topic);
                                 }
-                                NamedEntities named =  new NamedEntities( "a",  topics , "b");
-                                namedEnt.add(named);
+                                namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
                             }
                         }
                     }
@@ -97,6 +96,7 @@ public class App {
 
                 // TODO: Print stats
                 System.out.println("\nStats: ");
+
                 System.out.println("-".repeat(80));
             }
     } catch (MalformedURLException e) {

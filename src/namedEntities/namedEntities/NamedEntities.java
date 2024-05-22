@@ -1,9 +1,9 @@
-
+package namedEntities;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale.Category;
-enum String {PERSON, LOCATION, ORGANIZATION, OTHER};
-enum Topics {POLITICS, SPORTS, ECONOMY, HEALTH, TECHNOLOGY, CULTURE, OTHER};
+import java.util.ArrayList;
+import java.lang.String;
 
 
 public class NamedEntities {
@@ -19,10 +19,10 @@ public class NamedEntities {
    public String getCategory(){
        return category;
    }
-   public Topics[] getTopics(){ 
-        Topics top[] = new Topics[topics.size()];
-        return topics.toArray(top);
+   public List <String>  getTopics(){ 
+        return topics;
    }//dudoso cuestionable parcialmente mal complicado inneceario
+   // aca hay que mejorar claramente 
    public String getName(){
        return name;
    }
