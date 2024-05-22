@@ -40,13 +40,13 @@ public class UserInterface {
                 }
             }
         }
-
+        Boolean printhelp = optionDict.containsKey("-h");
         Boolean printFeed = optionDict.containsKey("-pf");
         Boolean computeNamedEntities = optionDict.containsKey("-ne");
         // TODO: use value for heuristic config
         String heuristic = optionDict.get("-he");
         String feedKey = optionDict.get("-f");
 
-        return new Config(printFeed, computeNamedEntities, feedKey, heuristic);
+        return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic);
     }
 }

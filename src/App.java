@@ -34,7 +34,9 @@ public class App {
             System.out.println("No feeds data found");
             return;
         }
-
+        if (config.getPrinthelp()) {
+            printHelp(feedsDataArray);
+        }
         try {
             System.out.println("HOLA ENTRE  try del demonio");
             List<Article> allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl()));
