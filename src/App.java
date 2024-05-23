@@ -3,8 +3,11 @@ import java.util.ArrayList;
 //import java.util.Dictionary;
 import java.util.List;
 import feed.FeedParser;
+// named entities package
 import ne.heuristics.CapitalizedWordHeuristic;
 import ne.NamedEntities;
+import ne.heuristics.SemanticNeighborg;
+// ----------------------------------------
 import feed.Article;
 import utils.Config;
 import utils.DictionaryData;
@@ -119,7 +122,7 @@ public class App {
     } catch (Exception e) {
         e.printStackTrace();
         System.out.println("Exception");
-        }
+        } 
     }
     
         //dudoso catch Exception e 

@@ -10,7 +10,7 @@ public class Stats {
     public Stats() {
         categoryCount= new HashMap<>();
     }
-    public Stats(Integer x ){
+    public Stats(Integer x ){ // mejorable flag para diferenciar entre category y topic (Integer) 
         topicCount = new HashMap<>();
     }
 

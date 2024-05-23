@@ -1,4 +1,4 @@
-package ne;
+package ne.heuristics;
 
 import java.text.Normalizer;
 import java.util.List;
