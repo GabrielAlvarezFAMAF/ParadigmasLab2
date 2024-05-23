@@ -23,3 +23,15 @@ En el código proporcionado, se está procesando una lista de argumentos llamada
 Si se cumple esta condición, significa que hay un valor asociado al argumento actual. Luego, se agrega una entrada al diccionario optionDict utilizando el nombre del argumento como clave y el valor del argumento adicional como valor. Después de agregar la entrada al diccionario, se incrementa el valor de i en 1 para omitir el argumento adicional en la siguiente iteración del bucle.
 
 En resumen, este fragmento de código se encarga de procesar los argumentos de línea de comandos y almacenar los valores asociados a los argumentos en un diccionario.
+
+
+
+JSONParser.java 
+
+38 - jsonObject.getJSONArray("topic"): Aquí se accede al objeto jsonObject y se obtiene un arreglo JSON con la clave "topic". Suponiendo que jsonObject es un objeto JSON válido, esta línea de código devuelve un arreglo JSON.
+
+.toString(): Después de obtener el arreglo JSON, se llama al método toString() para convertirlo en una cadena de texto. Esto es necesario porque el método split() que se utilizará más adelante requiere una cadena de texto como entrada.
+
+la idea de esto es meter un array Json convertido a String para crear el Dictionaryfeeds 
+parseando eso puedo usar todo lo que esta en el dictionary 
+

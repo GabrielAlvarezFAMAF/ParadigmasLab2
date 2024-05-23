@@ -1,5 +1,4 @@
-package feed;
-import java.util.Date;  
+package feed; 
 
 public class Article {
     private String title ; 

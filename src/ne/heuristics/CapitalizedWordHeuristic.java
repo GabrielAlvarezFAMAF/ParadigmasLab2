@@ -1,4 +1,4 @@
-package heuristics;
+package ne.heuristics;
    /*
    para profesiones 
    son palabras terminadas en or , ora , ista , ente , etc (PENSAR EN ESTO QUEDAN MAS),ero

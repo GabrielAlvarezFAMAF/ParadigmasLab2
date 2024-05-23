@@ -1,4 +1,4 @@
-package heuristics;
+package namedEntities.heuristics;
 
 import java.text.Normalizer;
 import java.util.List;

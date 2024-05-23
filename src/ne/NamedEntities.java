@@ -1,8 +1,6 @@
-package namedEntities;
+package ne;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale.Category;
-import java.util.ArrayList;
 import java.lang.String;
 
 

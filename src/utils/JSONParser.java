@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Dictionary;
+//import java.util.Dictionary;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -34,9 +34,9 @@ public class JSONParser {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             String label = jsonObject.getString("label");
-            String category = jsonObject.getString("category");
-            String[] topic = jsonObject.getJSONArray("topic").toString().split(",");
-            String[] keyword = jsonObject.getJSONArray("keyword").toString().split(",");
+            String category = jsonObject.getString("Category");
+            String[] topic = jsonObject.getJSONArray("Topics").toString().split(",");
+            String[] keyword = jsonObject.getJSONArray("keywords").toString().split(",");
             dictionaryList.add(new DictionaryData(label, category, topic, keyword));
         }
         return dictionaryList;
