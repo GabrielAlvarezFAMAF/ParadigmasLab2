@@ -24,6 +24,19 @@ Si se cumple esta condición, significa que hay un valor asociado al argumento a
 
 En resumen, este fragmento de código se encarga de procesar los argumentos de línea de comandos y almacenar los valores asociados a los argumentos en un diccionario.
 
+-------------------------------------------MUY IMPORTANTE-----------------------------------------------------------------------
+    ante el fallo en los manejos de args="lo que sea" decidi cambiar el codigo para entenderlo es por eso que ahora
+    en la linea 49 hacemos 
+        String heuristic = optionDict.get("-ne");
+    en vez de 
+        String heuristic = optionDict.get("-he");
+    esto hace que en el hashMap que busca clave valor en vez de buscar la clave -he busque la -ne 
+    por ejemplo si hacemos String heuristic = optionDict.get("-he capitalizeWords"); 
+    lo que vamos a tener es el string de "-he " que nos va a decir que heuristica estamos manejando pero no la va a usar
+    de otro modo String heuristic = optionDict.get("-ne capitalizeWors"); va a usar la heuristica y nos va a devolver
+    la lista con las namedEntitys en este caso con todos los que estan con mayuscula 
+    es por eso que hace falta mejroar esta parte para que lo haga con todas en particular con sf para devuelva las stats
+----------------------------------------------------------------------------------------------------------------------------------  
 
 
 JSONParser.java 

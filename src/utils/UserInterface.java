@@ -45,9 +45,11 @@ public class UserInterface {
         Boolean printFeed = optionDict.containsKey("-pf");
         Boolean computeNamedEntities = optionDict.containsKey("-ne");
         // TODO: use value for heuristic config
-        String heuristic = optionDict.get("-he");
         String feedKey = optionDict.get("-f");
-
+        String heuristic = optionDict.get("-ne");
+        //depuring 
+        System.out.println("Heuristic: " + heuristic);
+        System.out.println("Computed?: " + computeNamedEntities);
         return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic);
     }
 }

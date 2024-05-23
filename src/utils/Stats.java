@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import ne.NamedEntities;
 public class Stats {
-    private HashMap<String,Integer> categoryCount;
+    public HashMap<String,Integer> categoryCount;
     private HashMap<List<String>, Integer> topicCount;
 
     public Stats() {

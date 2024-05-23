@@ -103,13 +103,40 @@ public class App {
                         }
                     }
                 }
+                if (heuristicName.equals("SemanticNeighborg")){
+                    List<String> words = new ArrayList<>(); //creamos arreglo de palabras para trabajar con la heruistica capital letters
+                    SemanticNeighborg heuristic = new SemanticNeighborg(); //creamos un objeto de la clase heuristic
+                    words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); //extraemos las palabras candidatas
+                    words.forEach(System.out::println); //imprimimos las palabras candidatas
+                    //ahora deberiamos pasarlas por el diccionario para ver los topicos y categorias 
+                    //y luego agregarlas al arreglo de named entities
+                    for (String word : words) {
+                        for (DictionaryData data : dataDict) {
+                            if (word.equals(data.getKeyword())) {//es igual a la primera palabra o a todas?
+                                List <String> topics = new ArrayList<>();
+                                for(String topic : data.getTopic()){
+                                    topics.add(topic);
+                                }
+                                namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
+                            }else {
+                                List <String> topics = new ArrayList<>();
+                                topics.add("Other");
+                                namedEnt.add(new NamedEntities("Other",  topics , data.getLabel()));
+                            }
+
+                        }
+                    }
+                }
 
                 // TODO: Print stats
                 System.out.println("\nStats: ");
                 //Default stats for category  
                 System.out.println("Category-wise stats: ");
                 Stats stats = new Stats();
-                stats.countCategory(namedEnt).forEach((k,v) -> System.out.println(k + " : " + v));
+                stats.countCategory(namedEnt);
+                for (String key : stats.categoryCount.keySet()) {
+                    System.out.println(key + ": " + stats.categoryCount.get(key));
+                }
 
                 System.out.println("-".repeat(80));
             }
