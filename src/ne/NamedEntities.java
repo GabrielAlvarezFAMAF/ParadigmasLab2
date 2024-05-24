@@ -43,11 +43,11 @@ class Person extends NamedEntities {
     private int age;
     private int height; 
     //constructors
-    public Person(String category, List<String> topics, String name) {
-        super(category, topics, name);
+    public Person( List<String> topics, String name) {
+        super("Person", topics, name);
     }
-    public Person(String category, List<String> topics, String name, Date birth, int age, int height) {
-        super(category, topics, name);
+    public Person(List<String> topics, String name, Date birth, int age, int height) {
+        super("Person", topics, name);
         this.birth = birth;
         this.age = age;
         this.height = height;
@@ -67,11 +67,11 @@ class Location extends NamedEntities {
     private String longitud; 
     private String latitud;
     //constructors
-    public Location(String category, List<String> topics, String name) {
-        super(category, topics, name);
+    public Location(List<String> topics, String name) {
+        super("Location", topics, name);
     }
-    public Location(String category, List<String> topics, String name, String longitud, String latitud) {
-        super(category, topics, name);
+    public Location(List<String> topics, String name, String longitud, String latitud) {
+        super("Location", topics, name);
         this.longitud = longitud;
         this.latitud = latitud;
     }
@@ -87,11 +87,11 @@ class Organization extends NamedEntities {
     private Date fundationDate;
     private String website;
     //constructors
-    public Organization(String category, List<String> topics, String name) {
-        super(category, topics, name);
+    public Organization(List<String> topics, String name) {
+        super("Organization", topics, name);
     }
-    public Organization(String category, List<String> topics, String name, Date fundationDate, String website) {
-        super(category, topics, name);
+    public Organization(List<String> topics, String name, Date fundationDate, String website) {
+        super("Organization", topics, name);
         this.fundationDate = fundationDate;
         this.website = website;
     }
@@ -106,11 +106,11 @@ class Organization extends NamedEntities {
 class Other extends NamedEntities {
     private String description;
     //constructors
-    public Other(String category, List<String> topics, String name) {
-        super(category, topics, name);
+    public Other(List<String> topics, String name) {
+        super("Other", topics, name);
     }
-    public Other(String category, List<String> topics, String name, String description) {
-        super(category, topics, name);
+    public Other(List<String> topics, String name, String description) {
+        super("Other", topics, name);
         this.description = description;
     }
     //getters

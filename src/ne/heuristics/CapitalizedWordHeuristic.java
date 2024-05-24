@@ -1,30 +1,5 @@
 package ne.heuristics;
-   /*
-   para profesiones 
-   son palabras terminadas en or , ora , ista , ente , etc (PENSAR EN ESTO QUEDAN MAS),ero
-   OJO CON LOS FALSOS POSITIVOS
 
-
-
-
-*/
-
-
-
-
-
-/*
-   para lugares salvo los especificos podemos ver palabras que empiencen con
-   san , villa . santa , quinta, estado, republica,federancion, reino , union, facultad
-   templo, ciudad, univerdad , distrito , departamento
-   pensar y pensar y pensar
-
-
-*/
-/*  para personas esta la heuristica de la catedra que da nombre y apelldio hay que mejorarla pero esta bien
-
-
-*/
 import java.text.Normalizer;
 import java.util.List;
 import java.util.ArrayList;

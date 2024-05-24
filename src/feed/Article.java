@@ -44,7 +44,5 @@ public class Article {
         "Publication Date: " + pubDate + "\n" + 
         "Link: " + link+ "\n "+ "******************"
         );
-    }//provided by copilot but have to change to pretty print 
-    
-    //metodos (de ser necesarios) 
+    }
 }

@@ -16,7 +16,6 @@ public class UserInterface {
         options.add(new Option("-ne", "--named-entity", 1));
         options.add(new Option("-pf", "--print-feed", 0));
         options.add(new Option("-sf", "--stats-format", 1));
-        options.add(new Option("-he", "--heuristic", 1));
 
         optionDict = new HashMap<String, String>();
     }
@@ -46,10 +45,9 @@ public class UserInterface {
         Boolean computeNamedEntities = optionDict.containsKey("-ne");
         // TODO: use value for heuristic config
         String feedKey = optionDict.get("-f");
-        String heuristic = optionDict.get("-ne");
-        //depuring 
-        System.out.println("Heuristic: " + heuristic);
-        System.out.println("Computed?: " + computeNamedEntities);
-        return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic);
+
+        return new Config(printhelp, printFeed, computeNamedEntities, feedKey, "");
     }
 }
+
+//si ejecuto sin argumentos debe imprimir el feed

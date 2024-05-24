@@ -7,13 +7,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
-enum ParaLocaciones {Ciudad, Federacion, Repiblica, Reyno};
-enum ParaProfesiones {Presidente, Gobernador, Secretario, Vocero, CEO, Jefe, General, Tecnico, Entrenador, Musico, Cantante, Futbolista}
-
-
 public class SemanticNeighborg {
     
-    private static Set<String> keyWords = new HashSet<>(List.of(
+    static Set<String> keyWords = new HashSet<>(List.of(
         //Locaciones
         "Ciudad", "País", "Región", "Continente", "Estado", "Provincia", "Municipio", "Pueblo", "Villa", "Distrito", "Universidad",
         "Barrio", "Zona", "Territorio", "Isla", "Archipiélago", "República", "Federación", "Comunidad Autónoma", "Departamento", "Nación"

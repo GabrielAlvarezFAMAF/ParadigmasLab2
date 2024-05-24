@@ -35,7 +35,7 @@ En resumen, este fragmento de código se encarga de procesar los argumentos de l
     lo que vamos a tener es el string de "-he " que nos va a decir que heuristica estamos manejando pero no la va a usar
     de otro modo String heuristic = optionDict.get("-ne capitalizeWors"); va a usar la heuristica y nos va a devolver
     la lista con las namedEntitys en este caso con todos los que estan con mayuscula 
-    es por eso que hace falta mejroar esta parte para que lo haga con todas en particular con sf para devuelva las stats
+    es por eso que hace falta mejroar esta parte para que lo haga con todas en particular con sf para devuelva las stats-----
 ----------------------------------------------------------------------------------------------------------------------------------  
 
 
@@ -48,3 +48,17 @@ JSONParser.java
 la idea de esto es meter un array Json convertido a String para crear el Dictionaryfeeds 
 parseando eso puedo usar todo lo que esta en el dictionary 
 
+----------------------------------------------------------------------------------------------------------------------------------
+
+Cambios en clase NamedEntities, los parametros de contructores instanciaban CUALQUIER categoria cuando se debia restringir a una unica(done).
+
+Posible cambio: tratar de cambiar el campo "heuristic" en clase config. en vez de un String puede ser un objeto (CapitalizedWordHeuristic?)
+
+User Interface: no hace falta que sea "dinamico" el usuario elije una heuristica que lee de help.
+
+Entidades nombradas: cuando se corra CapitalizedWordHeuristic y se recolectan "candidatos" a entidades nombradas, todos los falsos positivos se desechan
+es decir, si NO esta en el diccionario NO se agrega. Para las otras heuristicas no (podemos hacer que ande mejor).
+
+Modularizar e Identar, borrar comentarios
+
+Ver los stats, puede haber problema en cualquier parte por ej: DictionaryData
