@@ -3,10 +3,11 @@ import java.util.ArrayList;
 //import java.util.Dictionary;
 import java.util.List;
 import feed.FeedParser;
+import feed.FeedSelect;
 // named entities package
 import ne.heuristics.CapitalizedWordHeuristic;
 import ne.NamedEntities;
-import ne.heuristics.SemanticNeighborg;
+//import ne.heuristics.SemanticNeighborg;
 // ----------------------------------------
 import feed.Article;
 import utils.Config;
@@ -45,6 +46,7 @@ public class App {
         }
         if (config.getPrinthelp()) {
             printHelp(feedsDataArray);
+            return; 
         }
 
         //parseo del diccionario para usarse posteriormente
@@ -60,18 +62,19 @@ public class App {
 
         //--------------------------------------------------------------------------
         try {
-            List<Article> allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl()));
-            
-            // TODO: Populate allArticles with articles from corresponding feed
-            if (config.getPrintFeed()) {
-                System.out.println("Printing feed(s) ");
-                // TODO: Print the fetched feed
-                for (Article article : allArticles) {
-                    article.toString(article.getTitle(), article.getDescrpition(), article.getPubDate(), article.getLink());
-
-                }
+            // feed ----------------------------------------------------------------
+            FeedSelect feedSelect = new FeedSelect(); 
+            List<Article> allArticles = new ArrayList<>(); 
+            feedSelect.pString(config.getFeedKey());
+            if (!(null == (feedSelect.gString()))) { 
+                allArticles = feedSelect.selectOne(config.getFeedKey(), feedsDataArray);       
             }
-
+                // TODO: Populate allArticles with articles from corresponding feed
+            if (config.getPrintFeed()) {
+                feedSelect.printFeed(allArticles, feedsDataArray);
+            }
+            // feed -----------------------------------------------------------------
+            
             if (config.getComputeNamedEntities()) {
                 // TODO: complete the message with the selected heuristic name
                 String heuristicName = config.getHeuristic();
@@ -101,6 +104,7 @@ public class App {
                     for(NamedEntities entity : namedEnt){
                         System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
                 }
+<<<<<<< Updated upstream
                
             }
             if(heuristicName.equals("SemanticNeighborg")){
@@ -126,6 +130,30 @@ public class App {
                     System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
             }
 
+=======
+                // if (heuristicName.equals("SemanticNeighborg")){
+                //     List<String> words = new ArrayList<>();
+                //     SemanticNeighborg heuristic = new SemanticNeighborg(); 
+                //     words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); 
+                //     words.forEach(System.out::println); 
+                //     for (String word : words) {
+                //         for (DictionaryData data : dataDict) {
+                //             if (word.equals(data.getKeyword())) {//es igual a la primera palabra o a todas?
+                //                 List <String> topics = new ArrayList<>();
+                //                 for(String topic : data.getTopic()){
+                //                     topics.add(topic);
+                //                 }
+                //                 namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
+                //             }else {
+                //                 List <String> topics = new ArrayList<>();
+                //                 topics.add("Other");
+                //                 namedEnt.add(new NamedEntities("Other",  topics , data.getLabel()));
+                //             }
+
+                //         }
+                //     }
+                // }
+>>>>>>> Stashed changes
 
                 // TODO: Print stats
                 System.out.println("\nStats: ");
@@ -169,7 +197,8 @@ public class App {
         System.out.println("                                       named entities");
         System.out.println("                                       Available heuristic names are: ");
         // TODO: Print the available heuristics with the following format
-        System.out.println("                                       <name>: <description>");
+        System.out.println("                                       CapitalizedWordHeuristic: captures capitalized words ");
+
         System.out.println("  -pf, --print-feed:                   Print the fetched feed");
         System.out.println("  -sf, --stats-format <format>:        Print the stats in the specified format");
         System.out.println("                                       Available formats are: ");

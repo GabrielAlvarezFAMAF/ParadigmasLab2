@@ -62,3 +62,10 @@ es decir, si NO esta en el diccionario NO se agrega. Para las otras heuristicas 
 Modularizar e Identar, borrar comentarios
 
 Ver los stats, puede haber problema en cualquier parte por ej: DictionaryData
+
+---------------------------------------------------------------------------------------------------
+La nueva class FeedSelect.java implementa la eleccion de los get[i] donde i es el index de los feed.js, los ifs en App.java diferencian de si el usuario puso -f <-algo-> -pf o -pf.
+Luego esta logica se debe aplicar a las otras flags, o sea, si las implementan sobre esta, capaz se rompa algo, pero idk. Manejen con cuidado. 
+
+Luego, si se puede modularizar mas, pueden hacerlo. 
+
