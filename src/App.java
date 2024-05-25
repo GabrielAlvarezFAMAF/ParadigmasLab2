@@ -83,48 +83,49 @@ public class App {
                     List<String> words = new ArrayList<>(); //creamos arreglo de palabras para trabajar con la heruistica capital letters
                     CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic(); //creamos un objeto de la clase heuristic
                     words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); //extraemos las palabras candidatas
-                    words.forEach(System.out::println); //imprimimos las palabras candidatas
-                    //ahora deberiamos pasarlas por el diccionario para ver los topicos y categorias 
-                    //y luego agregarlas al arreglo de named entities
                     for (String word : words) {
                         for (DictionaryData data : dataDict) {
-                            if (word.equals(data.getKeyword())) {//es igual a la primera palabra o a todas?
-                                List <String> topics = new ArrayList<>();
-                                for(String topic : data.getTopic()){
-                                    topics.add(topic);
+                            for (String i : data.getKeyword()){
+                                if (word.equals(i.replaceAll("[\\[\\]\"]", ""))) {
+                                    List <String> topics = new ArrayList<>();
+                                    for(String topic : data.getTopic()){
+                                        topics.add(topic);
+                                    }
+                                    namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
                                 }
-                                namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
-                            }else {
-                                List <String> topics = new ArrayList<>();
-                                topics.add("Other");
-                                namedEnt.add(new NamedEntities("Other",  topics , data.getLabel()));
-                            }//corregir: si la palabra NO esta en el diccionario se descarta, solo se adhieren las que esten.
-
-                        }
-                    }
-                }
-                if (heuristicName.equals("SemanticNeighborg")){
-                    List<String> words = new ArrayList<>();
-                    SemanticNeighborg heuristic = new SemanticNeighborg(); 
-                    words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); 
-                    words.forEach(System.out::println); 
-                    for (String word : words) {
-                        for (DictionaryData data : dataDict) {
-                            if (word.equals(data.getKeyword())) {//es igual a la primera palabra o a todas?
-                                List <String> topics = new ArrayList<>();
-                                for(String topic : data.getTopic()){
-                                    topics.add(topic);
-                                }
-                                namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
-                            }else {
-                                List <String> topics = new ArrayList<>();
-                                topics.add("Other");
-                                namedEnt.add(new NamedEntities("Other",  topics , data.getLabel()));
                             }
-
+                        }
+                    }
+                    //print de named entities
+                    System.out.println("Named Entities: ");
+                    for(NamedEntities entity : namedEnt){
+                        System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
+                }
+               
+            }
+            if(heuristicName.equals("SemanticNeighborg")){
+                List<String> words = new ArrayList<>(); //creamos arreglo de palabras para trabajar con la heruistica capital letters
+                SemanticNeighborg heuristic = new SemanticNeighborg(); //creamos un objeto de la clase heuristic
+                words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); //extraemos las palabras candidatas
+                for (String word : words) {
+                    for (DictionaryData data : dataDict) {
+                        for (String i : data.getKeyword()){
+                            if (word.equals(i.replaceAll("[\\[\\]\"]", ""))) {
+                                List <String> topics = new ArrayList<>();
+                                for(String topic : data.getTopic()){
+                                    topics.add(topic);
+                                }
+                                namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
+                            }
                         }
                     }
                 }
+                //print de named entities
+                System.out.println("Named Entities: ");
+                for(NamedEntities entity : namedEnt){
+                    System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
+            }
+
 
                 // TODO: Print stats
                 System.out.println("\nStats: ");
@@ -138,6 +139,7 @@ public class App {
 
                 System.out.println("-".repeat(80));
             }
+    }
     } catch (MalformedURLException e) {
         e.printStackTrace();
         System.out.println("Malformed URL");
