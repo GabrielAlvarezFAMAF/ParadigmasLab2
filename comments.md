@@ -68,4 +68,5 @@ La nueva class FeedSelect.java implementa la eleccion de los get[i] donde i es e
 Luego esta logica se debe aplicar a las otras flags, o sea, si las implementan sobre esta, capaz se rompa algo, pero idk. Manejen con cuidado. 
 
 Luego, si se puede modularizar mas, pueden hacerlo. 
+POR CIERTO: hay pequenas modificaciones en UserInterface.java (se cambio el nombre de configHeuristic a solo Heuristic)
 

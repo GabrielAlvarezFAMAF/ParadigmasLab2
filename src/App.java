@@ -104,33 +104,6 @@ public class App {
                     for(NamedEntities entity : namedEnt){
                         System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
                 }
-<<<<<<< Updated upstream
-               
-            }
-            if(heuristicName.equals("SemanticNeighborg")){
-                List<String> words = new ArrayList<>(); //creamos arreglo de palabras para trabajar con la heruistica capital letters
-                SemanticNeighborg heuristic = new SemanticNeighborg(); //creamos un objeto de la clase heuristic
-                words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); //extraemos las palabras candidatas
-                for (String word : words) {
-                    for (DictionaryData data : dataDict) {
-                        for (String i : data.getKeyword()){
-                            if (word.equals(i.replaceAll("[\\[\\]\"]", ""))) {
-                                List <String> topics = new ArrayList<>();
-                                for(String topic : data.getTopic()){
-                                    topics.add(topic);
-                                }
-                                namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
-                            }
-                        }
-                    }
-                }
-                //print de named entities
-                System.out.println("Named Entities: ");
-                for(NamedEntities entity : namedEnt){
-                    System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
-            }
-
-=======
                 // if (heuristicName.equals("SemanticNeighborg")){
                 //     List<String> words = new ArrayList<>();
                 //     SemanticNeighborg heuristic = new SemanticNeighborg(); 
@@ -153,7 +126,6 @@ public class App {
                 //         }
                 //     }
                 // }
->>>>>>> Stashed changes
 
                 // TODO: Print stats
                 System.out.println("\nStats: ");
