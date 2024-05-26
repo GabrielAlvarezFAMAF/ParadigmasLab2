@@ -10,6 +10,7 @@ import utils.FeedsData;
 public class FeedSelect {
     private boolean varselec = true; 
     private String feedkeyString; 
+    private String fetchedUrl;
     // setter
     public String pString(String feeedkey){
         return this.feedkeyString = feeedkey; 
@@ -21,21 +22,28 @@ public class FeedSelect {
     public String gString(){
         return this.feedkeyString; 
     }
+    public String getfetchedUrl(){
+        return this.fetchedUrl; 
+    }
 
     public List<Article> selectOne(String feedkey, List<FeedsData> feedsDataArray){
         List<Article> allArticles = new ArrayList<>();
         try{
             if ("p12pais".equals(feedkey)) {
                 allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl()));
+                fetchedUrl = FeedParser.fetchFeed(feedsDataArray.get(0).getUrl());
             }
             else if ("p12eco".equals(feedkey)) {
                 allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(1).getUrl()));
+                fetchedUrl = FeedParser.fetchFeed(feedsDataArray.get(1).getUrl());
             }
             else if ("lmgral".equals(feedkey)) {
                 allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(2).getUrl()));
+                fetchedUrl = FeedParser.fetchFeed(feedsDataArray.get(2).getUrl());
             }
             else if ("lmnoti".equals(feedkey)) {
                 allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(3).getUrl()));
+                fetchedUrl = FeedParser.fetchFeed(feedsDataArray.get(3).getUrl());
             }
             varselec = false; 
             

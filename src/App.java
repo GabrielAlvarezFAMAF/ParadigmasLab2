@@ -65,9 +65,15 @@ public class App {
             // feed ----------------------------------------------------------------
             FeedSelect feedSelect = new FeedSelect(); 
             List<Article> allArticles = new ArrayList<>(); 
+            String fetchedUrl = "";
             feedSelect.pString(config.getFeedKey());
             if (!(null == (feedSelect.gString()))) { 
                 allArticles = feedSelect.selectOne(config.getFeedKey(), feedsDataArray);       
+                fetchedUrl = feedSelect.getfetchedUrl();
+            }
+            else {
+                allArticles = FeedParser.parseXML(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl()));
+                fetchedUrl =FeedParser.fetchFeed(feedsDataArray.get(0).getUrl());
             }
                 // TODO: Populate allArticles with articles from corresponding feed
             if (config.getPrintFeed()) {
@@ -81,11 +87,10 @@ public class App {
                 System.out.println("Computing named entities using " + heuristicName + " heuristic");
 
                 // TODO: compute named entities using the selected heuristic
-                
                 if (heuristicName.equals("CapitalizedWordHeuristic")) {
                     List<String> words = new ArrayList<>(); //creamos arreglo de palabras para trabajar con la heruistica capital letters
                     CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic(); //creamos un objeto de la clase heuristic
-                    words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); //extraemos las palabras candidatas
+                    words = heuristic.extractCandidates(fetchedUrl); //extraemos las palabras candidatas
                     for (String word : words) {
                         for (DictionaryData data : dataDict) {
                             for (String i : data.getKeyword()){
@@ -127,19 +132,21 @@ public class App {
                 //     }
                 // }
 
-                // TODO: Print stats
-                System.out.println("\nStats: ");
-                //Default stats for category  
-                System.out.println("Category-wise stats: ");
-                Stats stats = new Stats();
-                stats.countCategory(namedEnt);
+
+            }
+        }
+        if(config.getPrintStats()){
+         // TODO: Print stats
+            System.out.println("\nStats: ");
+            //Default stats for category  
+            System.out.println("Category-wise stats: ");
+            Stats stats = new Stats();
+            stats.countCategory(namedEnt);
                 for (String key : stats.categoryCount.keySet()) {
                     System.out.println(key + ": " + stats.categoryCount.get(key));
                 }
-
-                System.out.println("-".repeat(80));
-            }
-    }
+            System.out.println("-".repeat(80));
+        }
     } catch (MalformedURLException e) {
         e.printStackTrace();
         System.out.println("Malformed URL");

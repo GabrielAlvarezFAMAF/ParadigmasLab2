@@ -43,11 +43,11 @@ public class UserInterface {
         Boolean printhelp = optionDict.containsKey("-h");
         Boolean printFeed = optionDict.containsKey("-pf");
         Boolean computeNamedEntities = optionDict.containsKey("-ne");
-
+        boolean printStats = optionDict.containsKey("-sf");
         String feedKey = optionDict.get("-f");
         String heuristic = optionDict.get("-ne");
         // TO DO falta stat format
-        return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic);
+        return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic, printStats);
     }
 }
 
