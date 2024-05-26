@@ -3,6 +3,7 @@ package utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import utils.Stats;
 public class UserInterface {
 
     private HashMap<String, String> optionDict;
@@ -43,11 +44,15 @@ public class UserInterface {
         Boolean printhelp = optionDict.containsKey("-h");
         Boolean printFeed = optionDict.containsKey("-pf");
         Boolean computeNamedEntities = optionDict.containsKey("-ne");
-        boolean printStats = optionDict.containsKey("-sf");
         String feedKey = optionDict.get("-f");
         String heuristic = optionDict.get("-ne");
         // TO DO falta stat format
-        return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic, printStats);
+        Stats stats = new Stats();
+        if(optionDict.containsKey("-sf")){
+            stats = new Stats(optionDict.get("-sf"));
+        }
+        System.out.println(stats.getFormat());
+        return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic, stats);
     }
 }
 

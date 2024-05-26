@@ -70,3 +70,15 @@ Luego esta logica se debe aplicar a las otras flags, o sea, si las implementan s
 Luego, si se puede modularizar mas, pueden hacerlo. 
 POR CIERTO: hay pequenas modificaciones en UserInterface.java (se cambio el nombre de configHeuristic a solo Heuristic)
 
+
+-------------------------------------------------------------------------------------------------------------------------------
+modifique feed select para agarrar url y poder usarlo dentro de named entitiies 
+modifique stats con nuevos parametros y le di un nuevo parametro a config para agarrar esas stats 
+haciendo una serie de comandos especificos funciona bien por ejemplo 
+make run ARGS="-ne CapitalizedWordHeuristic -f p12eco -sf topic"
+make run ARGS="-ne CapitalizedWordHeuristic -f p12eco -sf cat" 
+make run ARGS="-ne CapitalizedWordHeuristic -f p12pais -sf topic" 
+es decir andan todas las versiones -f y de -sf resta hacer andar el comando 
+make run ARGS="-ne SemanticNeighborhoodHeuristic cualquiera de los otros ejemplos aca" 
+podria resumir en
+usage make run ARGS= " -ne <selected-heuristic> -f <selected-feed> -sf <selected-stat-format> 

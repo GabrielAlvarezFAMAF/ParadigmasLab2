@@ -108,7 +108,7 @@ public class App {
                     System.out.println("Named Entities: ");
                     for(NamedEntities entity : namedEnt){
                         System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
-                }
+                    }
                 // if (heuristicName.equals("SemanticNeighborg")){
                 //     List<String> words = new ArrayList<>();
                 //     SemanticNeighborg heuristic = new SemanticNeighborg(); 
@@ -135,17 +135,30 @@ public class App {
 
             }
         }
-        if(config.getPrintStats()){
+        if(config.stats().getPrintStats()){
          // TODO: Print stats
             System.out.println("\nStats: ");
             //Default stats for category  
-            System.out.println("Category-wise stats: ");
-            Stats stats = new Stats();
-            stats.countCategory(namedEnt);
-                for (String key : stats.categoryCount.keySet()) {
-                    System.out.println(key + ": " + stats.categoryCount.get(key));
-                }
-            System.out.println("-".repeat(80));
+            System.out.println(" in the app  format " + config.stats().getFormat()); 
+            if (config.stats().getFormat().equals("cat")) {
+                System.out.println("Category-wise stats: ");
+                Stats stats = config.stats();
+                stats.countCategory(namedEnt);
+                    for (String key : stats.categoryCount.keySet()) {
+                        System.out.println(key + ": " + stats.categoryCount.get(key));
+                    }
+                System.out.println("-".repeat(80));
+            }
+            //Default stats for topic
+            if (config.stats().getFormat().equals("topic")) {
+                System.out.println("Topic-wise stats: ");
+                Stats stats = config.stats();
+                stats.countTopic(namedEnt);
+                    for (List<String> key : stats.topicCount.keySet()) {
+                        System.out.println(key + ": " + stats.topicCount.get(key));
+                    }
+                System.out.println("-".repeat(80));
+            }
         }
     } catch (MalformedURLException e) {
         e.printStackTrace();
