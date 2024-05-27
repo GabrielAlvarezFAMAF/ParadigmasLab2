@@ -17,6 +17,7 @@ import utils.JSONParser;
 import utils.UserInterface;
 import java.net.MalformedURLException;
 import utils.Stats;
+import utils.HandleHeuristic;
 //import java.util.List;
 import java.lang.String;
 public class App {
@@ -89,42 +90,8 @@ public class App {
                 System.out.println("Computing named entities using " + heuristicName + " heuristic");
 
                 // TODO: compute named entities using the selected heuristic
-                if (heuristicName.equals("CapitalizedWordHeuristic")) {
-                    List<String> words = new ArrayList<>(); 
-                    CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic(); 
-                    words = heuristic.extractCandidates(fetchedUrl); 
-                    for (String word : words) {
-                        for (DictionaryData data : dataDict) {
-                            for (String datakey : data.getKeyword()){
-                                if (word.equals(datakey.replaceAll("[\\[\\]\"]", ""))) {
-                                    List <String> topics = new ArrayList<>();
-                                    for(String topic : data.getTopic()){
-                                        topics.add(topic);
-                                    }
-                                    namedEnt.add(new NamedEntities(data.getCategory(),  data.getTopic() , data.getLabel()));
-                                }
-                            }
-                        }
-                    }
-                }
-                if (heuristicName.equals("FiltredCwh")){
-                    List<String> words = new ArrayList<>();
-                    FiltredCwh heuristic = new FiltredCwh(); 
-                    words= heuristic.filterCandidates(articlesToString);
-                    for (String word : words) {
-                        for (DictionaryData data : dataDict) {
-                            for (String datakey : data.getKeyword()){
-                                if (word.equals(datakey.replaceAll("[\\[\\]\"]", ""))) {
-                                    List <String> topics = new ArrayList<>();
-                                    for(String topic : data.getTopic()){
-                                            topics.add(topic);
-                                    }
-                                    namedEnt.add(new NamedEntities(data.getCategory(),  data.getTopic() , data.getLabel()));
-                                }
-                            }
-                        }
-                    }
-                }
+                HandleHeuristic handleHeuristic = new HandleHeuristic();
+                namedEnt = handleHeuristic.handleString(heuristicName, fetchedUrl, dataDict, articlesToString);
              
                  //print de named entities
                 System.out.println("Named Entities: ");
