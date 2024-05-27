@@ -19,8 +19,7 @@ public class NamedEntities {
    }
    public List <String>  getTopics(){ 
         return topics;
-   }//dudoso cuestionable parcialmente mal complicado inneceario
-   // aca hay que mejorar claramente 
+   }
    public String getName(){
        return name;
    }

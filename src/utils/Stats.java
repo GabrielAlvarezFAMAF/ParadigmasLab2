@@ -2,12 +2,13 @@
 package utils;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import ne.NamedEntities;
 public class Stats {
     private String format;
     private Boolean printStats=false;
     public HashMap<String,Integer> categoryCount;
-    public HashMap<List<String>, Integer> topicCount;
+    public HashMap<String, Integer> topicCount;
 
     public Stats() {
         format = "";
@@ -27,8 +28,6 @@ public class Stats {
         printStats = true;
     }
      public HashMap<String,Integer> countCategory( List<NamedEntities> entitys){
-        System.out.println("Counting categories");
-        // print the hash map for depuring 
         for (NamedEntities entity : entitys) {
             // Check if the category exists in the outer map
             if (!categoryCount.containsKey(entity.getCategory())) {
@@ -41,14 +40,18 @@ public class Stats {
         //done by me
         return categoryCount;
      }
-     public HashMap<List<String>,Integer> countTopic( List<NamedEntities> entitys){
+     public HashMap<String,Integer> countTopic( List<NamedEntities> entitys){
+        List<String> topics = new ArrayList<>();
         for (NamedEntities entity : entitys) {
-            // Check if the category exists in the outer map
-            if (!topicCount.containsKey(entity.getTopics())) {
-                topicCount.put( entity.getTopics(),1);
-            }else {
-                // Update the count for the category
-                topicCount.put(entity.getTopics(), topicCount.get(entity.getTopics()) + 1);
+            topics = entity.getTopics();
+            for (String topic : topics){
+                topic = topic.replaceAll("[\\[\\]\"]", "");
+                if (!topicCount.containsKey(topic)) {
+                    topicCount.put(topic,1);
+                }else {
+                    // Update the count for the category
+                    topicCount.put(topic, topicCount.get(topic) + 1);
+                }   
             }
         }
         return topicCount;
@@ -58,7 +61,7 @@ public class Stats {
         public HashMap<String,Integer> getCategoryCount(){
             return categoryCount;
         }
-        public HashMap<List<String>,Integer> getTopicCount(){
+        public HashMap<String,Integer> getTopicCount(){
             return topicCount;
         }
         public Boolean getPrintStats(){

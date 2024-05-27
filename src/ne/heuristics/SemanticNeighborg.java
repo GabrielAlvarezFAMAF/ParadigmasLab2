@@ -13,10 +13,20 @@ public class SemanticNeighborg {
     static Set<String> keyWords = new HashSet<>(List.of(
         //Locaciones
         "Ciudad", "País", "Región", "Continente", "Estado", "Provincia", "Municipio", "Pueblo", "Villa", "Distrito", "Universidad",
-        "Barrio", "Zona", "Territorio", "Isla", "Archipiélago", "República", "Federación", "Comunidad Autónoma", "Departamento", "Nación"
-        /*Profesiones"Presidente*/, "Gobernador", "Técnico", "Licenciado", "Músico", "Vocero", "Ministro", "Doctor", 
+        "Barrio", "Zona", "Territorio", "Isla", "Archipiélago", "República", "Federación", "Comunidad Autónoma", "Departamento", "Nación", "Territorio",
+        "Cantón", "Parroquia", "Comuna", "Aldea","Gabinete", "Corte", "Cámara", "Asamblea", "Congreso", "Senado", "Parlamento", "Gobierno", "Ayuntamiento",
+        /*Profesiones"Presidente*/ "Gobernador", "Técnico", "Licenciado", "Músico", "Vocero", "Ministro", "Doctor",
         "Ingeniero", "Profesor", "Abogado", "Juez", "Empresario", "Director", "Gerente", "Asesor", "Consultor", "Investigador", "Científico", 
-        "Artista","Cabildo", "Escritor", "Periodista", "Actor", "Deportista", "Chef", "Arquitecto", "Contador", "Enfermero", "Paramédico", "Piloto", "Capitán"
+        "Artista","Cabildo", "Iglesia","Escritor", "Periodista", "Actor", "Deportista", "Chef", "Arquitecto", "Contador", "Enfermero", "Paramédico", "Piloto", "Capitán",
+        "General", "Almirante", "Sargento", "Soldado", "Policía", "Detective", "Guardia", "Vigilante", "Bombero", "Rescatista", "Paramédico", "Médico", "Enfermero", "Farmacéutico",
+        "Psicólogo", "Psiquiatra", "Terapeuta", "Consejero", "Entrenador", "Nutricionista", "Dietista", "Fisioterapeuta", "Kinesiólogo", "Masajista", "Estilista", "Maquillador", "Diseñador",
+        "Decorador", "Carpintero", "Albañil", "Electricista", "Plomero", "Mecánico", "Soldador", "Pintor", "Jardinero", "Agricultor", "Ganadero", "Pescador", "Cazador", "Carpintero", "Albañil",
+        "Electricista", "Plomero", "Mecánico", "Soldador", "Pintor", "Jardinero", "Agricultor", "Ganadero", "Pescador", "Cazador", "Carpintero", "Albañil", "Electricista", "Plomero", "Mecánico",
+        "Soldador", "Pintor", "Jardinero", "Agricultor", "Ganadero", "Pescador", "Cazador", "Carpintero", "Albañil", "Electricista", "Plomero", "Mecánico", "Soldador", "Pintor", "Jardinero", "Agricultor",
+        "Ganadero", "Pescador", "Cazador", "Carpintero", "Albañil", "Electricista", "Plomero", "Mecánico", "Soldador", "Pintor", "Jardinero", "Agricultor", "Ganadero", "Pescador", "Cazador", "Carpintero", "Albañil",
+        "Obispo","Arzobispo","Cardenal","Papa","Sacerdote","Pastor","Rabino","Imán","Monje","Monja","Fraile","Hermana","Hermano","Misionero","Evangelista","Cura","Vicario","Diácono","Diaconisa","Presbítero","Pastor","Pastora",
+        "Rector","Vicario","Diácono","Diaconisa","Presbítero","Pastor","Pastora","Rector","Vicario","Diácono","Diaconisa","Presbítero","Pastor","Pastora","Rector","Vicario","Diácono","Diaconisa","Presbítero","Pastor","Pastora","Rector",
+        "arzobispo"
     ));
     static Set<String> Org = new HashSet<> (List.of(
         "Naciones Unidas", "Unión Europea", "OTAN", "OMS", "OIT", "FMI", "Banco Mundial", "OEA", "Unesco", 
@@ -29,15 +39,12 @@ public class SemanticNeighborg {
     ));
     
     static List<String> excludedWords = List.of(
-        "de", "del", "El", "el", "La", "la", "Los", "los", "Las", "las"
+        "de", "del", "El", "el", "La", "la", "Los", "los", "Las", "las","le","Le"
     );
     
     public static List<String> extractCandidates(String text) {
         CapitalizedWordHeuristic cWH = new CapitalizedWordHeuristic();
         List<String> candidates = new ArrayList<>();
-        text = text.replaceAll("[-+.^:,\"]", "");
-        text = Normalizer.normalize(text, Normalizer.Form.NFD);
-        text = text.replaceAll("\\p{M}", "");
         String[] words = text.replaceAll("[\\[\\]<>//]", "").split("\\s+");
         String filteredText ; 
         for (int i = 0; i < words.length; i++) {

@@ -1,11 +1,13 @@
 package feed; 
-
+import java.util.List;
 public class Article {
     private String title ; 
     private String descrpition ; 
     private String pubDate ; 
     private String link ; 
     //constructor
+    public Article(){
+    }
     public Article(String title, String descrpition, String pubDate, String link){
         this.title = title;
         this.descrpition = descrpition;
@@ -44,5 +46,13 @@ public class Article {
         "Publication Date: " + pubDate + "\n" + 
         "Link: " + link+ "\n "+ "******************"
         );
+    }
+    public String toText( List<Article> articles){
+        String text = "";
+        for(Article article : articles){
+            text = text + article.getDescrpition();
+            text = text + article.getTitle();
+        }
+        return text;
     }
 }

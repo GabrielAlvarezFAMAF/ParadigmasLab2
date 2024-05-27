@@ -7,7 +7,7 @@ import feed.FeedSelect;
 // named entities package
 import ne.heuristics.CapitalizedWordHeuristic;
 import ne.NamedEntities;
-import ne.heuristics.SemanticNeighborg;
+import ne.heuristics.FiltredCwh;
 // ----------------------------------------
 import feed.Article;
 import utils.Config;
@@ -52,7 +52,7 @@ public class App {
         //parseo del diccionario para usarse posteriormente
         //-------------------------------------------------------------------------
         List<DictionaryData> dataDict = new ArrayList<>();
-        List<NamedEntities> namedEnt = new ArrayList<>(); //creamos arreglo de named entities
+        List<NamedEntities> namedEnt = new ArrayList<>(); 
         try {
             dataDict = JSONParser.parseJsonDictionaryData("src/data/dictionary.json");
         } catch (IOException e) {
@@ -80,7 +80,9 @@ public class App {
                 feedSelect.printFeed(allArticles, feedsDataArray);
             }
             // feed -----------------------------------------------------------------
-            
+            Article article = new Article();
+            String articlesToString= article.toText(allArticles); 
+
             if (config.getComputeNamedEntities()) {
                 // TODO: complete the message with the selected heuristic name
                 String heuristicName = config.getHeuristic();
@@ -88,13 +90,13 @@ public class App {
 
                 // TODO: compute named entities using the selected heuristic
                 if (heuristicName.equals("CapitalizedWordHeuristic")) {
-                    List<String> words = new ArrayList<>(); //creamos arreglo de palabras para trabajar con la heruistica capital letters
-                    CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic(); //creamos un objeto de la clase heuristic
-                    words = heuristic.extractCandidates(fetchedUrl); //extraemos las palabras candidatas
+                    List<String> words = new ArrayList<>(); 
+                    CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic(); 
+                    words = heuristic.extractCandidates(fetchedUrl); 
                     for (String word : words) {
                         for (DictionaryData data : dataDict) {
-                            for (String i : data.getKeyword()){
-                                if (word.equals(i.replaceAll("[\\[\\]\"]", ""))) {
+                            for (String datakey : data.getKeyword()){
+                                if (word.equals(datakey.replaceAll("[\\[\\]\"]", ""))) {
                                     List <String> topics = new ArrayList<>();
                                     for(String topic : data.getTopic()){
                                         topics.add(topic);
@@ -105,32 +107,25 @@ public class App {
                         }
                     }
                 }
-                System.out.println("Heuristic: " + heuristicName );
-                if (heuristicName.equals("SemanticNeighborg")){
+                if (heuristicName.equals("FiltredCwh")){
                     List<String> words = new ArrayList<>();
-                    SemanticNeighborg heuristic = new SemanticNeighborg(); 
-                    words = heuristic.extractCandidates(fetchedUrl); 
+                    FiltredCwh heuristic = new FiltredCwh(); 
+                    words= heuristic.filterCandidates(articlesToString);
                     for (String word : words) {
-                        System.out.println("word: " + word);
                         for (DictionaryData data : dataDict) {
-                            if (word.equals(data.getKeyword())) {
-                                for (String i : data.getKeyword()){
-                                    if (word.equals(i.replaceAll("[\\[\\]\"]", ""))) {
-                                        List <String> topics = new ArrayList<>();
-                                        for(String topic : data.getTopic()){
+                            for (String datakey : data.getKeyword()){
+                                if (word.equals(datakey.replaceAll("[\\[\\]\"]", ""))) {
+                                    List <String> topics = new ArrayList<>();
+                                    for(String topic : data.getTopic()){
                                             topics.add(topic);
-                                        }
-                                        System.out.println("data category "  + data.getCategory());
-                                        System.out.println("data topics "  + data.getTopic());
-                                        System.out.println("data label "  + data.getLabel());
-                                        namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
                                     }
+                                    namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
                                 }
                             }
-
                         }
                     }
                 }
+             
                  //print de named entities
                 System.out.println("Named Entities: ");
                 for(NamedEntities entity : namedEnt){
@@ -141,8 +136,7 @@ public class App {
         if(config.stats().getPrintStats()){
          // TODO: Print stats
             System.out.println("\nStats: ");
-            //Default stats for category  
-            System.out.println(" in the app  format " + config.stats().getFormat()); 
+            //Default && category stats
             if (config.stats().getFormat().equals("cat")) {
                 System.out.println("Category-wise stats: ");
                 Stats stats = config.stats();
@@ -152,12 +146,12 @@ public class App {
                     }
                 System.out.println("-".repeat(80));
             }
-            //Default stats for topic
+            //topic stats
             if (config.stats().getFormat().equals("topic")) {
                 System.out.println("Topic-wise stats: ");
                 Stats stats = config.stats();
                 stats.countTopic(namedEnt);
-                    for (List<String> key : stats.topicCount.keySet()) {
+                    for (String key : stats.topicCount.keySet()) {
                         System.out.println(key + ": " + stats.topicCount.get(key));
                     }
                 System.out.println("-".repeat(80));
@@ -193,7 +187,7 @@ public class App {
         System.out.println("                                       Available heuristic names are: ");
         // TODO: Print the available heuristics with the following format
         System.out.println("                                       CapitalizedWordHeuristic: captures capitalized words ");
-
+        System.out.println("                                       FiltredCwh: captures capitalized words that are not in the stop words list");
         System.out.println("  -pf, --print-feed:                   Print the fetched feed");
         System.out.println("  -sf, --stats-format <format>:        Print the stats in the specified format");
         System.out.println("                                       Available formats are: ");
