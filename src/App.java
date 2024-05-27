@@ -7,7 +7,7 @@ import feed.FeedSelect;
 // named entities package
 import ne.heuristics.CapitalizedWordHeuristic;
 import ne.NamedEntities;
-//import ne.heuristics.SemanticNeighborg;
+import ne.heuristics.SemanticNeighborg;
 // ----------------------------------------
 import feed.Article;
 import utils.Config;
@@ -104,37 +104,40 @@ public class App {
                             }
                         }
                     }
-                    //print de named entities
-                    System.out.println("Named Entities: ");
-                    for(NamedEntities entity : namedEnt){
-                        System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
+                }
+                System.out.println("Heuristic: " + heuristicName );
+                if (heuristicName.equals("SemanticNeighborg")){
+                    List<String> words = new ArrayList<>();
+                    SemanticNeighborg heuristic = new SemanticNeighborg(); 
+                    words = heuristic.extractCandidates(fetchedUrl); 
+                    for (String word : words) {
+                        System.out.println("word: " + word);
+                        for (DictionaryData data : dataDict) {
+                            if (word.equals(data.getKeyword())) {
+                                for (String i : data.getKeyword()){
+                                    if (word.equals(i.replaceAll("[\\[\\]\"]", ""))) {
+                                        List <String> topics = new ArrayList<>();
+                                        for(String topic : data.getTopic()){
+                                            topics.add(topic);
+                                        }
+                                        System.out.println("data category "  + data.getCategory());
+                                        System.out.println("data topics "  + data.getTopic());
+                                        System.out.println("data label "  + data.getLabel());
+                                        namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
+                                    }
+                                }
+                            }
+
+                        }
                     }
-                // if (heuristicName.equals("SemanticNeighborg")){
-                //     List<String> words = new ArrayList<>();
-                //     SemanticNeighborg heuristic = new SemanticNeighborg(); 
-                //     words = heuristic.extractCandidates(FeedParser.fetchFeed(feedsDataArray.get(0).getUrl())); 
-                //     words.forEach(System.out::println); 
-                //     for (String word : words) {
-                //         for (DictionaryData data : dataDict) {
-                //             if (word.equals(data.getKeyword())) {//es igual a la primera palabra o a todas?
-                //                 List <String> topics = new ArrayList<>();
-                //                 for(String topic : data.getTopic()){
-                //                     topics.add(topic);
-                //                 }
-                //                 namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
-                //             }else {
-                //                 List <String> topics = new ArrayList<>();
-                //                 topics.add("Other");
-                //                 namedEnt.add(new NamedEntities("Other",  topics , data.getLabel()));
-                //             }
-
-                //         }
-                //     }
-                // }
-
-
+                }
+                 //print de named entities
+                System.out.println("Named Entities: ");
+                for(NamedEntities entity : namedEnt){
+                    System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
+                }
             }
-        }
+
         if(config.stats().getPrintStats()){
          // TODO: Print stats
             System.out.println("\nStats: ");
@@ -160,6 +163,7 @@ public class App {
                 System.out.println("-".repeat(80));
             }
         }
+    
     } catch (MalformedURLException e) {
         e.printStackTrace();
         System.out.println("Malformed URL");
@@ -172,7 +176,6 @@ public class App {
         } 
     }
     
-        //dudoso catch Exception e 
 
     // TODO: Maybe relocate this function where it makes more sense
     private static void printHelp(List<FeedsData> feedsDataArray) {
