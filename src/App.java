@@ -101,7 +101,7 @@ public class App {
                                     for(String topic : data.getTopic()){
                                         topics.add(topic);
                                     }
-                                    namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
+                                    namedEnt.add(new NamedEntities(data.getCategory(),  data.getTopic() , data.getLabel()));
                                 }
                             }
                         }
@@ -119,7 +119,7 @@ public class App {
                                     for(String topic : data.getTopic()){
                                             topics.add(topic);
                                     }
-                                    namedEnt.add(new NamedEntities(data.getCategory(),  topics , data.getLabel()));
+                                    namedEnt.add(new NamedEntities(data.getCategory(),  data.getTopic() , data.getLabel()));
                                 }
                             }
                         }

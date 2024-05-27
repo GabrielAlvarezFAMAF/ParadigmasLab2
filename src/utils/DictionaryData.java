@@ -1,15 +1,18 @@
 package utils;
-
+import java.util.List;
+import java.util.ArrayList;
 public class DictionaryData {
     private String label; 
     private String category; 
-    private String [] topic;
+    private List<String> topic=new ArrayList<>();
     private String [] keyword;
     //constructors
     public DictionaryData(String label, String category, String [] topic, String [] keyword) {
         this.label = label;
         this.category = category;
-        this.topic = topic;
+        for (String top : topic){
+            this.topic.add(top);
+        }
         this.keyword = keyword;
     }
     //getters
@@ -19,7 +22,7 @@ public class DictionaryData {
     public String getCategory(){
         return category;
     }
-    public String [] getTopic(){
+    public List<String> getTopic(){
         return topic;
     }
     public String [] getKeyword(){
