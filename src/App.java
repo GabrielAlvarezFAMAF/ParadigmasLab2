@@ -5,9 +5,7 @@ import java.util.List;
 import feed.FeedParser;
 import feed.FeedSelect;
 // named entities package
-import ne.heuristics.CapitalizedWordHeuristic;
 import ne.NamedEntities;
-import ne.heuristics.FiltredCwh;
 // ----------------------------------------
 import feed.Article;
 import utils.Config;
@@ -160,6 +158,7 @@ public class App {
         System.out.println("                                       Available formats are: ");
         System.out.println("                                       cat: Category-wise stats");
         System.out.println("                                       topic: Topic-wise stats");
+        System.out.println("Example: Make run ARGS=\"-f <feedKey> -ne <heuristicName> -pf -sf <format>\"");
     }
 
 }

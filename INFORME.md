@@ -38,7 +38,7 @@ Pueden usar esta checklist para indicar el avance.
 
 ## 1.4 Limpieza de código
 - [ ] Pasar un formateador de código
-- [ ] Revisar TODOs
+- [x] Revisar TODOs
 
 # 2. Experiencia
 En general tenemos en cuenta que nuestro codigo tiene algunos errores que puede generar codigo spaghetti 
