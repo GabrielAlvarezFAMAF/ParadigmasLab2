@@ -1,12 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
-//import java.util.Dictionary;
 import java.util.List;
 import feed.FeedParser;
 import feed.FeedSelect;
-// named entities package
-import ne.NamedEntities;
-// ----------------------------------------
+import namedEntities.NamedEntiy;
 import feed.Article;
 import utils.Config;
 import utils.DictionaryData;
@@ -16,7 +13,6 @@ import utils.UserInterface;
 import java.net.MalformedURLException;
 import utils.Stats;
 import utils.HandleHeuristic;
-//import java.util.List;
 import java.lang.String;
 public class App {
 
@@ -48,10 +44,10 @@ public class App {
             return; 
         }
 
-        //parseo del diccionario para usarse posteriormente
-        //-------------------------------------------------------------------------
+
+        //-------------------------Dictionary Data-----------------------------------------
         List<DictionaryData> dataDict = new ArrayList<>();
-        List<NamedEntities> namedEnt = new ArrayList<>(); 
+        List<NamedEntiy> namedEnt = new ArrayList<>(); 
         try {
             dataDict = JSONParser.parseJsonDictionaryData("src/data/dictionary.json");
         } catch (IOException e) {
@@ -59,9 +55,9 @@ public class App {
             System.out.println("Error parsing dictionary data");
         }
 
-        //--------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         try {
-            // feed ----------------------------------------------------------------
+            // ---------------------------feedSelect----------------------------------------
             FeedSelect feedSelect = new FeedSelect(); 
             List<Article> allArticles = new ArrayList<>(); 
             String fetchedUrl = "";
@@ -78,7 +74,7 @@ public class App {
             if (config.getPrintFeed()) {
                 feedSelect.printFeed(allArticles, feedsDataArray);
             }
-            // feed -----------------------------------------------------------------
+            // -----------------------------------------------------------------------------
             Article article = new Article();
             String articlesToString= article.toText(allArticles); 
 
@@ -91,33 +87,33 @@ public class App {
                 HandleHeuristic handleHeuristic = new HandleHeuristic();
                 namedEnt = handleHeuristic.handleString(heuristicName, fetchedUrl, dataDict, articlesToString);
              
-                 //print de named entities
                 System.out.println("Named Entities: ");
-                for(NamedEntities entity : namedEnt){
+                for(NamedEntiy entity : namedEnt){
                     System.out.println(entity.getCategory() + entity.getTopics()+ entity.getName());
                 }
             }
-
+        
         if(config.stats().getPrintStats()){
          // TODO: Print stats
             System.out.println("\nStats: ");
-            //Default && category stats
-            if (config.stats().getFormat().equals("cat")) {
+            if (config.stats().getFormat().equals("cat") 
+                || config.stats().getFormat().equals("")
+                || config.stats().getFormat().equals(" "))
+                {
                 System.out.println("Category-wise stats: ");
                 Stats stats = config.stats();
                 stats.countCategory(namedEnt);
-                    for (String key : stats.categoryCount.keySet()) {
-                        System.out.println(key + ": " + stats.categoryCount.get(key));
+                    for (String key : stats.getCategoryCount().keySet()) {
+                        System.out.println(key + ": " + stats.getCategoryCount().get(key));
                     }
                 System.out.println("-".repeat(80));
             }
-            //topic stats
             if (config.stats().getFormat().equals("topic")) {
                 System.out.println("Topic-wise stats: ");
                 Stats stats = config.stats();
                 stats.countTopic(namedEnt);
-                    for (String key : stats.topicCount.keySet()) {
-                        System.out.println(key + ": " + stats.topicCount.get(key));
+                    for (String key : stats.getTopicCount().keySet()) {
+                        System.out.println(key + ": " + stats.getTopicCount().get(key));
                     }
                 System.out.println("-".repeat(80));
             }
@@ -136,7 +132,6 @@ public class App {
     }
     
 
-    // TODO: Maybe relocate this function where it makes more sense
     private static void printHelp(List<FeedsData> feedsDataArray) {
         System.out.println("Usage: make run ARGS=\"[OPTION]\"");
         System.out.println("Options:");

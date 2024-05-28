@@ -5,7 +5,6 @@ public class Article {
     private String descrpition ; 
     private String pubDate ; 
     private String link ; 
-    //constructor
     public Article(){
     }
     public Article(String title, String descrpition, String pubDate, String link){
@@ -14,7 +13,6 @@ public class Article {
         this.pubDate = pubDate;
         this.link = link;
     }
-    //getters 
     public String getTitle(){
         return title;
     }   
@@ -27,7 +25,8 @@ public class Article {
     public String getLink(){
         return link;
     }
-    //setter 
+
+
     public void setLink(String link){
         this.link = link;
     }

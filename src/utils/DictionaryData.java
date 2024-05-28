@@ -6,7 +6,6 @@ public class DictionaryData {
     private String category; 
     private List<String> topic=new ArrayList<>();
     private String [] keyword;
-    //constructors
     public DictionaryData(String label, String category, String [] topic, String [] keyword) {
         this.label = label;
         this.category = category;
@@ -15,7 +14,6 @@ public class DictionaryData {
         }
         this.keyword = keyword;
     }
-    //getters
     public String getLabel(){
         return label;
     }

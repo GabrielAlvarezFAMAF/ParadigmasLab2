@@ -2,13 +2,15 @@
 package utils;
 import java.util.HashMap;
 import java.util.List;
+
+import namedEntities.NamedEntiy;
+
 import java.util.ArrayList;
-import ne.NamedEntities;
 public class Stats {
     private String format;
     private Boolean printStats=false;
-    public HashMap<String,Integer> categoryCount;
-    public HashMap<String, Integer> topicCount;
+    private HashMap<String, Integer> categoryCount;
+    private HashMap<String, Integer> topicCount;
 
     public Stats() {
         format = "";
@@ -27,29 +29,26 @@ public class Stats {
         this.format = format;
         printStats = true;
     }
-     public HashMap<String,Integer> countCategory( List<NamedEntities> entitys){
-        for (NamedEntities entity : entitys) {
-            // Check if the category exists in the outer map
+     public HashMap<String,Integer> countCategory( List<NamedEntiy> entitys){
+        for (NamedEntiy entity : entitys) {
             if (!categoryCount.containsKey(entity.getCategory())) {
-                categoryCount.put( entity.getCategory(),1);
+                categoryCount.put(entity.getCategory(),1);
             }else {
-                // Update the count for the category
                 categoryCount.put(entity.getCategory(), categoryCount.get(entity.getCategory()) + 1);
             }
         }
-        //done by me
+        //print hashmap
         return categoryCount;
      }
-     public HashMap<String,Integer> countTopic( List<NamedEntities> entitys){
+     public HashMap<String,Integer> countTopic( List<NamedEntiy> entitys){
         List<String> topics = new ArrayList<>();
-        for (NamedEntities entity : entitys) {
+        for (NamedEntiy entity : entitys) {
             topics = entity.getTopics();
             for (String topic : topics){
                 topic = topic.replaceAll("[\\[\\]\"]", "");
                 if (!topicCount.containsKey(topic)) {
                     topicCount.put(topic,1);
                 }else {
-                    // Update the count for the category
                     topicCount.put(topic, topicCount.get(topic) + 1);
                 }   
             }
@@ -70,14 +69,10 @@ public class Stats {
         public String getFormat(){
             return format;
         }
-        //setter
         public void setPrintStats(Boolean printStats){
             this.printStats = printStats;
         }
         public void setFormat(String format){
             this.format = format;
         } 
-        // hacen falta ? 
-
-        // done by copilot 
 }

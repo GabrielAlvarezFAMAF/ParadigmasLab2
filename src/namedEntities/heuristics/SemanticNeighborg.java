@@ -1,11 +1,8 @@
-package ne.heuristics;
-
-import java.text.Normalizer;
+package namedEntities.heuristics;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
-import ne.heuristics.CapitalizedWordHeuristic;
 
 
 public class SemanticNeighborg {
@@ -60,7 +57,6 @@ public class SemanticNeighborg {
                 candidates.add(words[i]);
             }
         }
-        System.out.println("cady :"+ candidates);
         return candidates;
     }
 }

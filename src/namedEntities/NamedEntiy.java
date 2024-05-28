@@ -1,19 +1,19 @@
-package ne;
+package namedEntities;
 import java.util.Date;
 import java.util.List;
 import java.lang.String;
 
 
-public class NamedEntities {
+public class NamedEntiy {
    private String category;
    private List <String> topics;   
    private String name ;
-   public NamedEntities (String category, List<String> topics, String name) {
+   public NamedEntiy (String category, List<String> topics, String name) {
        this.category = category ;
        this.topics = topics ;
        this.name = name;
    }
-// getters
+
    public String getCategory(){
        return category;
    }
@@ -23,7 +23,7 @@ public class NamedEntities {
    public String getName(){
        return name;
    }
-//setters 
+
    public void setCategory(String category){
        this.category = category;
    }
@@ -33,15 +33,13 @@ public class NamedEntities {
    public void setName(String name){
        this.name = name;
    }
-// metodos
+
 }
-//modelado de categorias posiblemente se necesite añadirlas a otro archivo 
-class Person extends NamedEntities {
-    //atributos unicos para cada categoria
+
+class Person extends NamedEntiy {
     private Date birth;
     private int age;
     private int height; 
-    //constructors
     public Person( List<String> topics, String name) {
         super("Person", topics, name);
     }
@@ -51,7 +49,6 @@ class Person extends NamedEntities {
         this.age = age;
         this.height = height;
     }
-    //getters 
     public Date getBirth(){
         return birth;
     }
@@ -62,10 +59,9 @@ class Person extends NamedEntities {
         return height;
     }
 }
-class Location extends NamedEntities {
+class Location extends NamedEntiy {
     private String longitud; 
     private String latitud;
-    //constructors
     public Location(List<String> topics, String name) {
         super("Location", topics, name);
     }
@@ -74,7 +70,6 @@ class Location extends NamedEntities {
         this.longitud = longitud;
         this.latitud = latitud;
     }
-    //getters
     public String getLongitud(){
         return longitud;
     }
@@ -82,10 +77,9 @@ class Location extends NamedEntities {
         return latitud;
     }
 }
-class Organization extends NamedEntities {
+class Organization extends NamedEntiy {
     private Date fundationDate;
     private String website;
-    //constructors
     public Organization(List<String> topics, String name) {
         super("Organization", topics, name);
     }
@@ -94,7 +88,6 @@ class Organization extends NamedEntities {
         this.fundationDate = fundationDate;
         this.website = website;
     }
-    //getters
     public Date getFundationDate(){
         return fundationDate;
     }
@@ -102,9 +95,8 @@ class Organization extends NamedEntities {
         return website;
     }
 }
-class Other extends NamedEntities {
+class Other extends NamedEntiy {
     private String description;
-    //constructors
     public Other(List<String> topics, String name) {
         super("Other", topics, name);
     }
@@ -112,13 +104,12 @@ class Other extends NamedEntities {
         super("Other", topics, name);
         this.description = description;
     }
-    //getters
     public String getDescription(){
         return description;
     }
     
 }
-//modelado de topics posiblemente se necesite añadirlas a otro archivo
+
 
 
 

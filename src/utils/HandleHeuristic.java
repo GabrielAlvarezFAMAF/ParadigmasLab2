@@ -1,13 +1,15 @@
 package utils;
-import ne.NamedEntities;
 import java.util.List;
+
+import namedEntities.NamedEntiy;
+import namedEntities.heuristics.CapitalizedWordHeuristic;
+import namedEntities.heuristics.FiltredCwh;
+
 import java.util.ArrayList;
-import ne.heuristics.CapitalizedWordHeuristic;
-import utils.DictionaryData;
-import ne.heuristics.FiltredCwh;
+
 public class HandleHeuristic {
-    public List<NamedEntities> handleString(String confHeuristic, String fetchedUrl, List<DictionaryData> dataDict, String articlesToString) {
-        List<NamedEntities> namedEnt = new ArrayList<>();
+    public List<NamedEntiy> handleString(String confHeuristic, String fetchedUrl, List<DictionaryData> dataDict, String articlesToString) {
+        List<NamedEntiy> namedEnt = new ArrayList<>();
         if(confHeuristic.equals("CapitalizedWordHeuristic")){
             List<String> words = new ArrayList<>(); 
             CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic(); 
@@ -20,7 +22,7 @@ public class HandleHeuristic {
                             for(String topic : data.getTopic()){
                                 topics.add(topic);
                             }
-                            namedEnt.add(new NamedEntities(data.getCategory(),  data.getTopic() , data.getLabel()));
+                            namedEnt.add(new NamedEntiy(data.getCategory(),  data.getTopic() , data.getLabel()));
                         }
                     }
                 }
@@ -38,7 +40,7 @@ public class HandleHeuristic {
                             for(String topic : data.getTopic()){
                                 topics.add(topic);
                             }
-                            namedEnt.add(new NamedEntities(data.getCategory(),  data.getTopic() , data.getLabel()));
+                            namedEnt.add(new NamedEntiy(data.getCategory(),  data.getTopic() , data.getLabel()));
                         }
                     }
                 }

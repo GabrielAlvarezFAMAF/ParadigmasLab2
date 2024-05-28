@@ -44,7 +44,6 @@ Pueden usar esta checklist para indicar el avance.
 En general tenemos en cuenta que nuestro codigo tiene algunos errores que puede generar codigo spaghetti 
 tenemos mucho que mejorar y aprender pero la idea del proyecto creemos que esta correcta.
 Tuvimnos problemas para entender y pensar el concepto de hueristica, logramos sacarlo adelante.
-
 # 3. Preguntas
 1. Explicar brevemente la estructura de datos elegida para las entidades nombradas.
 Hicimos 3 campos category, topics , name donde : 

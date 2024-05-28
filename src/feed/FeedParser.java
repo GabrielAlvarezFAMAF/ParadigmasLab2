@@ -29,7 +29,7 @@ public class FeedParser {
             String description = "";
             String link = "";
             String pubDate = "";
-            Node nodo = items.item(i); // a partir de aca vamos a trabajar como en algortimos 2 
+            Node nodo = items.item(i);
             if (nodo.getNodeType() == Node.ELEMENT_NODE){
                 Element elemment = (Element) nodo;
                 if(elemment.getElementsByTagName("title").getLength() > 0){

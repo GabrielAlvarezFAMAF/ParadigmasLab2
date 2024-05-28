@@ -11,11 +11,11 @@ public class FeedSelect {
     private boolean varselec = true; 
     private String feedkeyString; 
     private String fetchedUrl;
-    // setter
+
     public String pString(String feeedkey){
         return this.feedkeyString = feeedkey; 
     }
-    // getter
+
     public boolean gVarselec(){
         return varselec; 
     }
@@ -88,7 +88,6 @@ public class FeedSelect {
             allArticles = selectAll(feedsDataArray); 
         }
         System.out.println("Printing feed(s) ");
-        // TODO: Print the fetched feed
         for (Article article : allArticles) {
             article.toString(article.getTitle(), article.getDescrpition(), article.getPubDate(), article.getLink());
 

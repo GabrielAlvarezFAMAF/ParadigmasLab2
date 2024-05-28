@@ -46,14 +46,10 @@ public class UserInterface {
         Boolean computeNamedEntities = optionDict.containsKey("-ne");
         String feedKey = optionDict.get("-f");
         String heuristic = optionDict.get("-ne");
-        // TO DO falta stat format
         Stats stats = new Stats();
         if(optionDict.containsKey("-sf")){
             stats = new Stats(optionDict.get("-sf"));
         }
-        System.out.println(stats.getFormat());
         return new Config(printhelp, printFeed, computeNamedEntities, feedKey, heuristic, stats);
     }
 }
-
-//si ejecuto sin argumentos debe imprimir el feed
