@@ -93,30 +93,11 @@ public class App {
                 }
             }
         
-        if(config.stats().getPrintStats()){
+        if(config.getStats().getPrintStats()){
          // TODO: Print stats
             System.out.println("\nStats: ");
-            if (config.stats().getFormat().equals("cat") 
-                || config.stats().getFormat().equals("")
-                || config.stats().getFormat().equals(" "))
-                {
-                System.out.println("Category-wise stats: ");
-                Stats stats = config.stats();
-                stats.countCategory(namedEnt);
-                    for (String key : stats.getCategoryCount().keySet()) {
-                        System.out.println(key + ": " + stats.getCategoryCount().get(key));
-                    }
-                System.out.println("-".repeat(80));
-            }
-            if (config.stats().getFormat().equals("topic")) {
-                System.out.println("Topic-wise stats: ");
-                Stats stats = config.stats();
-                stats.countTopic(namedEnt);
-                    for (String key : stats.getTopicCount().keySet()) {
-                        System.out.println(key + ": " + stats.getTopicCount().get(key));
-                    }
-                System.out.println("-".repeat(80));
-            }
+            config.getStats().count(namedEnt);
+            config.getStats().printStats(config.getStats().getCount());
         }
     
     } catch (MalformedURLException e) {

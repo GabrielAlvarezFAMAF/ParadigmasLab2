@@ -9,59 +9,50 @@ import java.util.ArrayList;
 public class Stats {
     private String format;
     private Boolean printStats=false;
-    private HashMap<String, Integer> categoryCount;
-    private HashMap<String, Integer> topicCount;
-
+    private HashMap<String, Integer> Count;
     public Stats() {
-        format = "";
-        categoryCount= new HashMap<>();
-        topicCount = new HashMap<>();
-    }
-    public Stats(String format) {
-        if (format.equals("cat") || format.equals("") || format.equals(" ")) {
-            categoryCount= new HashMap<>();
-        }else if (format.equals("topic")) {
-            topicCount = new HashMap<>();
-        }else {
-            System.out.println("Invalid format");
-            System.exit(0);
-        }
-        this.format = format;
+        Count= new HashMap<>();
         printStats = true;
     }
-     public HashMap<String,Integer> countCategory( List<NamedEntiy> entitys){
-        for (NamedEntiy entity : entitys) {
-            if (!categoryCount.containsKey(entity.getCategory())) {
-                categoryCount.put(entity.getCategory(),1);
-            }else {
-                categoryCount.put(entity.getCategory(), categoryCount.get(entity.getCategory()) + 1);
-            }
-        }
-        //print hashmap
-        return categoryCount;
-     }
-     public HashMap<String,Integer> countTopic( List<NamedEntiy> entitys){
-        List<String> topics = new ArrayList<>();
-        for (NamedEntiy entity : entitys) {
-            topics = entity.getTopics();
-            for (String topic : topics){
-                topic = topic.replaceAll("[\\[\\]\"]", "");
-                if (!topicCount.containsKey(topic)) {
-                    topicCount.put(topic,1);
-                }else {
-                    topicCount.put(topic, topicCount.get(topic) + 1);
-                }   
-            }
-        }
-        return topicCount;
+    public Stats(String format) {
+        this.format = format;
+        Count= new HashMap<>();
+        printStats = true;
     }
-
-     //getter 
-        public HashMap<String,Integer> getCategoryCount(){
-            return categoryCount;
+     public HashMap<String,Integer> count( List<NamedEntiy> entitys ){
+        if (format.equals("cat")) {
+            for (NamedEntiy entity : entitys) {
+                if (!Count.containsKey(entity.getCategory())) {
+                    Count.put(entity.getCategory(),1);
+                }else {
+                    Count.put(entity.getCategory(),Count.get(entity.getCategory()) + 1);
+                }
+            }
         }
-        public HashMap<String,Integer> getTopicCount(){
-            return topicCount;
+        else if (format.equals("topic")) {
+            for (NamedEntiy entity : entitys) {
+                List<String> topics = entity.getTopics();
+                for (String topic : topics){
+                    topic = topic.replaceAll("[\\[\\]\"]", "");
+                    if (!Count.containsKey(topic)) {
+                        Count.put(topic,1);
+                    }else {
+                        Count.put(topic, Count.get(topic) + 1);
+                    }   
+                }
+            }
+        }
+        return Count;
+     }
+        public void printStats(HashMap<String,Integer> Count){
+            for (String key : Count.keySet()) {
+                System.out.println(key + " : " + Count.get(key));
+            }
+            System.out.println("-".repeat(80));
+        }
+     
+        public HashMap<String,Integer> getCount(){
+            return Count;
         }
         public Boolean getPrintStats(){
             return printStats;

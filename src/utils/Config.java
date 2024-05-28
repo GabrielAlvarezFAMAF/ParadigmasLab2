@@ -4,7 +4,7 @@ public class Config {
     private boolean printFeed = false;
     private boolean computeNamedEntities = false;
     private String feedKey;
-    Stats stats;
+    private Stats stats;
     // TODO: A reference to the used heuristic will be needed here
     private String heuristic; 
 
@@ -35,7 +35,7 @@ public class Config {
     public String getHeuristic() {
         return heuristic;
     }
-    public Stats stats() {
+    public Stats getStats() {
         return stats;
     }
     public void setHeuristic(String heuristic) {
